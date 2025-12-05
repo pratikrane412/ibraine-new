@@ -3,12 +3,31 @@ import React from 'react';
 import { motion } from 'framer-motion';
 
 const brands = [
-  "Jio", "Bajaj", "BMW", "Tata Motors", "RBL Bank", "Lupin", "Eris",
-  "Just In Time", "Ram Bandhu", "P.F. Changs", "Somaiya", "Crossword",
-  "PressTo", "Infra.Market", "Phillips", "Western", "Hosteller", "Delhivery",
-  "Sila", "Honeywell", "Sandwizza", "HomeTown", "Elgi", "Everest Fleet",
-  "ONDC", "Maharashtra Gov", "SOS Villages", "The Byke", "Alkem", "Pidilite",
-  "SmeDream", "MotoEarth", "Papita", "FitXFatLoss", "NatVenture", "WorkWise"
+  // --- TECH & SAAS ---
+  { name: "Google", src: "https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg" },
+  { name: "Microsoft", src: "https://upload.wikimedia.org/wikipedia/commons/9/96/Microsoft_logo_%282012%29.svg" },
+  { name: "Amazon", src: "https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg" },
+  { name: "Spotify", src: "https://upload.wikimedia.org/wikipedia/commons/2/26/Spotify_logo_with_text.svg" },
+  { name: "Netflix", src: "https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg" },
+  { name: "Airbnb", src: "https://upload.wikimedia.org/wikipedia/commons/6/69/Airbnb_Logo_B%C3%A9lo.svg" },
+  { name: "Slack", src: "https://upload.wikimedia.org/wikipedia/commons/b/b9/Slack_Technologies_Logo.svg" },
+  { name: "Shopify", src: "https://upload.wikimedia.org/wikipedia/commons/0/0e/Shopify_logo_2018.svg" },
+  { name: "Figma", src: "https://upload.wikimedia.org/wikipedia/commons/3/33/Figma-logo.svg" },
+  
+  // --- AUTOMOTIVE ---
+  { name: "BMW", src: "https://upload.wikimedia.org/wikipedia/commons/4/44/BMW.svg" },
+  { name: "Mercedes", src: "https://upload.wikimedia.org/wikipedia/commons/9/90/Mercedes-Logo.svg" },
+  { name: "Toyota", src: "https://upload.wikimedia.org/wikipedia/commons/9/9d/Toyota_carlogo.svg" },
+  { name: "Tesla", src: "https://upload.wikimedia.org/wikipedia/commons/e/e8/Tesla_logo.png" },
+
+  // --- FINANCE & RETAIL ---
+  { name: "Visa", src: "https://upload.wikimedia.org/wikipedia/commons/5/5e/Visa_Inc._logo.svg" },
+  { name: "Mastercard", src: "https://upload.wikimedia.org/wikipedia/commons/2/2a/Mastercard-logo.svg" },
+  { name: "PayPal", src: "https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg" },
+  { name: "Samsung", src: "https://upload.wikimedia.org/wikipedia/commons/2/24/Samsung_Logo.svg" },
+  { name: "Coca Cola", src: "https://upload.wikimedia.org/wikipedia/commons/c/ce/Coca-Cola_logo.svg" },
+  { name: "Nike", src: "https://upload.wikimedia.org/wikipedia/commons/a/a6/Logo_NIKE.svg" },
+  { name: "Adidas", src: "https://upload.wikimedia.org/wikipedia/commons/2/20/Adidas_Logo.svg" },
 ];
 
 export const TrustGrid = () => {
@@ -16,16 +35,18 @@ export const TrustGrid = () => {
     <section className="py-24 px-4 bg-zinc-50 dark:bg-zinc-950 transition-colors duration-300">
       <div className="max-w-[1400px] mx-auto">
         
+        {/* Header */}
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-5xl font-bold text-zinc-900 dark:text-white mb-4 transition-colors">
-            Brands Who <span className="text-orange-500">Trust Us</span>
+            Trusted by <span className="text-orange-500">Global Leaders</span>
           </h2>
           <p className="text-zinc-500 dark:text-zinc-400 text-lg transition-colors">
-            Delivering value to market leaders for over 8 years.
+            Empowering the world's most innovative companies.
           </p>
         </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
+        {/* Logo Grid */}
+        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6 justify-center">
           
           {brands.map((brand, i) => (
             <motion.div
@@ -33,15 +54,23 @@ export const TrustGrid = () => {
               initial={{ opacity: 0, scale: 0.9 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
-              transition={{ delay: i * 0.02, duration: 0.4 }}
-              whileHover={{ 
-                y: -5, 
-              }}
-              className="h-28 bg-white dark:bg-zinc-900/40 border border-zinc-200 dark:border-white/5 rounded-xl flex items-center justify-center p-4 cursor-default transition-all group hover:border-orange-500/30 dark:hover:border-white/20 shadow-sm dark:shadow-none"
+              transition={{ delay: i * 0.05, duration: 0.4 }}
+              whileHover={{ y: -5 }}
+              // Modified container background for better visibility of dark logos in dark mode
+              className="h-32 bg-white dark:bg-zinc-200 border border-zinc-200 dark:border-white/5 rounded-2xl flex items-center justify-center p-8 cursor-default transition-all group hover:border-orange-500/30 dark:hover:border-white/20 hover:shadow-lg dark:shadow-none"
             >
-              <span className="text-lg font-bold text-zinc-400 group-hover:text-zinc-900 dark:text-zinc-600 dark:group-hover:text-white transition-colors text-center">
-                {brand}
-              </span>
+              {/* 
+                  UPDATED IMAGE CLASS:
+                  - Removed 'grayscale'
+                  - Removed 'opacity-60'
+                  - Removed 'dark:invert'
+                  - Result: Original Brand Colors Always Visible
+              */}
+              <img 
+                src={brand.src} 
+                alt={brand.name} 
+                className="w-full h-full object-contain transition-transform duration-300 group-hover:scale-110"
+              />
             </motion.div>
           ))}
 
