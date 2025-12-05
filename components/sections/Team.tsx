@@ -37,7 +37,7 @@ const teamMembers = [
   {
     name: "Sarah K.",
     role: "Marketing Head",
-    image: "https://images.unsplash.com/photo-1554151228-14d9def656ec?q=80&w=800&auto=format&fit=crop"
+    image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=800&auto=format&fit=crop"
   },
   {
     name: "Michael B.",
