@@ -16,3 +16,14 @@ body {
 html {
   scroll-behavior: smooth;
 }
+
+/* Only hide default cursor on desktop devices */
+@media (min-width: 768px) {
+  body {
+    cursor: none;
+  }
+  
+  a, button, input, textarea {
+    cursor: none;
+  }
+}

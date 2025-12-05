@@ -1,7 +1,9 @@
 import './globals.css';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
-import { Providers } from '@/components/ui/Providers'; // <--- Import this
+import { Providers } from '@/components/ui/Providers';
+import { Navbar } from '@/components/layout/Navbar';
+import { Cursor } from '@/components/ui/Cursor'; // <--- Import this
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -17,9 +19,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      {/* Update body classes for base Light/Dark modes */}
       <body className={`${inter.className} bg-white dark:bg-[#050505] text-zinc-900 dark:text-white antialiased transition-colors duration-300`}>
         <Providers>
+          {/* Add the Cursor here */}
+          <Cursor /> 
+          
           {children}
         </Providers>
       </body>

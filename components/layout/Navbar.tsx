@@ -19,21 +19,22 @@ export const Navbar = () => {
     <motion.nav
       initial={{ y: -100 }}
       animate={{ y: 0 }}
-      // CHANGE 1: Full width, no centering. 
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 border-b ${
         scrolled 
           ? 'bg-white/80 dark:bg-black/80 backdrop-blur-xl border-zinc-200 dark:border-white/10 py-4' 
           : 'bg-transparent border-transparent py-6'
       }`}
     >
-      {/* CHANGE 2: Max-width container to align content to edges */}
       <div className="w-full max-w-[1440px] mx-auto px-6 md:px-12 flex items-center justify-between">
         
-        {/* LEFT: Logo */}
-        <div className="flex items-center gap-2">
-          <span className="text-2xl font-bold tracking-tighter text-zinc-900 dark:text-white transition-colors">
-            <span className="text-orange-500">i</span>Braine
-          </span>
+        {/* LEFT: Logo Image */}
+        <div className="flex items-center">
+          {/* Using next/image is recommended, but standard img works too */}
+          <img 
+            src="/logo.webp " // MAKE SURE YOUR IMAGE IS NAMED THIS IN 'public' FOLDER
+            alt="iBraine Logo" 
+            className="h-12 w-auto object-contain" 
+          />
         </div>
 
         {/* RIGHT: Everything else grouped here */}
@@ -54,7 +55,7 @@ export const Navbar = () => {
 
           {/* Actions: Theme Toggle + CTA */}
           <div className="hidden md:flex items-center gap-4">
-            <div className="w-px h-6 bg-zinc-300 dark:bg-white/10 mx-2"></div> {/* Divider */}
+            <div className="w-px h-6 bg-zinc-300 dark:bg-white/10 mx-2"></div>
             <ThemeToggle />
             <Button variant="primary" className="!py-2.5 !px-6 text-sm h-10 shadow-lg shadow-orange-500/20">
               Get a Quote
