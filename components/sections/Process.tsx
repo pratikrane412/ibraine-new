@@ -55,7 +55,7 @@ export const Process = () => {
         {/* Section Header */}
         <div className="text-center mb-20">
           <h2 className="text-3xl md:text-5xl font-bold text-zinc-900 dark:text-white mb-6 transition-colors">
-            Our Complete Process
+            Our Complete <span className="text-zinc-400">Process</span>
           </h2>
           <p className="text-zinc-600 dark:text-zinc-400 text-lg max-w-2xl mx-auto transition-colors">
             From the first audit to the final sale, our workflow is designed for speed and precision.

@@ -2,6 +2,10 @@
 import React, { useRef, useEffect } from 'react';
 import { motion, useInView, useMotionValue, useSpring, useTransform } from 'framer-motion';
 
+// --- BRAND COLORS ---
+// Used in the gradient logic below
+const BRAND_GRADIENT = "from-[#FF6B00] to-[#2B7ABC]"; 
+
 // --- Helper Component for the Animation ---
 const Counter = ({ value }: { value: string }) => {
   const ref = useRef<HTMLSpanElement>(null);
@@ -10,11 +14,9 @@ const Counter = ({ value }: { value: string }) => {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
   
   // 2. Parse the string (e.g., "$50M+")
-  // Extract the number (50)
   const numberMatch = value.match(/(\d+)/);
   const number = numberMatch ? parseInt(numberMatch[0]) : 0;
   
-  // Extract text before and after the number
   const parts = value.split(number.toString());
   const prefix = parts[0] || "";
   const suffix = parts[1] || "";
@@ -24,10 +26,9 @@ const Counter = ({ value }: { value: string }) => {
   const springValue = useSpring(motionValue, { 
     damping: 30, 
     stiffness: 100,
-    duration: 2 // Slower, smoother counting
+    duration: 2 
   });
   
-  // 4. Transform the raw number into a rounded integer string
   const rounded = useTransform(springValue, (latest) => Math.round(latest));
 
   useEffect(() => {
@@ -64,14 +65,21 @@ export const Stats = () => {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ delay: i * 0.1 }}
               viewport={{ once: true }}
+              className="flex flex-col items-center"
             >
-              {/* Animated Counter Value */}
-              <h3 className="text-4xl md:text-6xl font-bold text-zinc-900 dark:text-white mb-2 tracking-tight transition-colors">
+              {/* 
+                 VALUE: Applied Brand Gradient (Orange -> Blue)
+                 This makes the numbers look metallic/premium and branded.
+              */}
+              <h3 className={`text-4xl md:text-6xl font-black mb-2 tracking-tight text-transparent bg-clip-text bg-gradient-to-r ${BRAND_GRADIENT}`}>
                 <Counter value={stat.value} />
               </h3>
               
-              {/* Static Label */}
-              <p className="text-zinc-600 dark:text-zinc-500 text-sm md:text-base uppercase tracking-wider font-medium transition-colors">
+              {/* Decorative Accent Line (Brand Blue) */}
+              <div className="h-1 w-8 rounded-full bg-[#2B7ABC] mb-3 opacity-50" />
+
+              {/* Label */}
+              <p className="text-zinc-600 dark:text-zinc-400 text-sm md:text-base uppercase tracking-wider font-bold transition-colors">
                 {stat.label}
               </p>
             </motion.div>

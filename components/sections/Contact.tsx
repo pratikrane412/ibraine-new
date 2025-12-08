@@ -4,6 +4,10 @@ import { motion } from 'framer-motion';
 import { ArrowUpRight, Mail, MapPin, Phone, Check, Truck, Coffee, Car } from 'lucide-react';
 import { Robot3D } from '@/components/ui/Robot3D';
 
+// --- BRAND COLORS ---
+const BRAND_ORANGE = "#FF6B00";
+const BRAND_BLUE = "#2B7ABC";
+
 // --- Icons ---
 const XLogo = () => <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" /></svg>;
 const FacebookLogo = () => <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5"><path d="M9.101 23.691v-7.98H6.627v-3.667h2.474v-1.58c0-4.085 1.848-5.978 5.859-5.978.564 0 2.605.053 3.12.13v3.665h-2.153c-1.85 0-2.58.6-2.58 2.252v1.511h4.44l-1.003 3.667h-3.437v7.98H9.101z" /></svg>;
@@ -25,13 +29,20 @@ const servicesList = [
   "Ecommerce"
 ];
 
-// Reusable Input Component for the "Line Theme"
+// Reusable Input
 const LineInput = ({ placeholder, type = "text" }: { placeholder: string, type?: string }) => (
-  <input 
-    type={type}
-    placeholder={placeholder}
-    className="w-full bg-transparent border-b border-zinc-300 dark:border-zinc-700 py-3 text-lg font-medium text-zinc-900 dark:text-white placeholder:text-zinc-400 focus:outline-none focus:border-orange-500 transition-colors"
-  />
+  <div className="relative group">
+    <input 
+      type={type}
+      placeholder={placeholder}
+      className="w-full bg-transparent border-b border-zinc-300 dark:border-zinc-700 py-3 text-lg font-medium text-zinc-900 dark:text-white placeholder:text-zinc-400 focus:outline-none transition-colors peer"
+      style={{ caretColor: BRAND_ORANGE }}
+    />
+    <div 
+      className="absolute bottom-0 left-0 w-0 h-[1px] transition-all duration-300 peer-focus:w-full" 
+      style={{ backgroundColor: BRAND_ORANGE }}
+    />
+  </div>
 );
 
 export const Contact = () => {
@@ -41,7 +52,10 @@ export const Contact = () => {
     <section id="contact" className="py-24 px-4 bg-white dark:bg-black relative overflow-hidden transition-colors duration-300">
       
       {/* Background Glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-orange-500/5 rounded-full blur-[120px] pointer-events-none" />
+      <div 
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full blur-[120px] pointer-events-none opacity-5"
+        style={{ backgroundColor: BRAND_ORANGE }}
+      />
 
       <div className="max-w-[1300px] mx-auto relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24 items-start">
@@ -52,10 +66,12 @@ export const Contact = () => {
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="text-4xl md:text-6xl font-black text-zinc-900 dark:text-white leading-tight tracking-tight mb-4"
+              className="text-4xl md:text-6xl font-black leading-tight tracking-tight mb-4"
             >
-              Let's work <br/> 
-              <span className="text-zinc-400 dark:text-zinc-600">together</span>
+              {/* "Let's work" in BRAND ORANGE */}
+              <span style={{ color: BRAND_ORANGE }}>Let's work</span> <br/> 
+              {/* "together" in BRAND BLUE */}
+              <span style={{ color: BRAND_BLUE }}>together</span>
             </motion.h2>
 
             <div className="-ml-10 -mt-10">
@@ -65,34 +81,46 @@ export const Contact = () => {
             <div className="space-y-6 -mt-10 relative z-20">
               {/* Email */}
               <div className="flex items-center gap-5 group cursor-pointer">
-                <div className="w-12 h-12 rounded-full border border-zinc-200 dark:border-zinc-800 flex items-center justify-center group-hover:bg-orange-500 group-hover:border-orange-500 group-hover:text-white transition-all duration-300">
-                  <Mail size={20} />
+                <div 
+                  className="w-12 h-12 rounded-full border border-zinc-200 dark:border-zinc-800 flex items-center justify-center group-hover:text-white transition-all duration-300"
+                  style={{ borderColor: 'inherit' }}
+                >
+                  <Mail size={20} className="group-hover:text-white" />
+                  <style jsx>{`
+                    .group:hover .rounded-full { background-color: ${BRAND_ORANGE}; border-color: ${BRAND_ORANGE}; }
+                  `}</style>
                 </div>
                 <div>
                   <p className="text-xs uppercase tracking-wider text-zinc-400 font-bold mb-1">Email</p>
-                  <p className="text-lg font-bold text-zinc-900 dark:text-white group-hover:text-orange-500 transition-colors">info@ibraine.com</p>
+                  <p className="text-lg font-bold text-zinc-900 dark:text-white transition-colors" style={{ color: 'inherit' }}>
+                    <span className="group-hover:text-[#FF6B00] transition-colors">info@ibraine.com</span>
+                  </p>
                 </div>
               </div>
 
               {/* Location */}
               <div className="flex items-center gap-5 group cursor-pointer">
-                <div className="w-12 h-12 rounded-full border border-zinc-200 dark:border-zinc-800 flex items-center justify-center group-hover:bg-orange-500 group-hover:border-orange-500 group-hover:text-white transition-all duration-300">
-                  <MapPin size={20} />
+                <div className="w-12 h-12 rounded-full border border-zinc-200 dark:border-zinc-800 flex items-center justify-center group-hover:text-white transition-all duration-300">
+                  <MapPin size={20} className="group-hover:text-white" />
                 </div>
                 <div>
                   <p className="text-xs uppercase tracking-wider text-zinc-400 font-bold mb-1">Location</p>
-                  <p className="text-lg font-bold text-zinc-900 dark:text-white group-hover:text-orange-500 transition-colors">Mumbai, India</p>
+                  <p className="text-lg font-bold text-zinc-900 dark:text-white">
+                    <span className="group-hover:text-[#FF6B00] transition-colors">Mumbai, India</span>
+                  </p>
                 </div>
               </div>
 
               {/* Phone */}
               <div className="flex items-center gap-5 group cursor-pointer">
-                <div className="w-12 h-12 rounded-full border border-zinc-200 dark:border-zinc-800 flex items-center justify-center group-hover:bg-orange-500 group-hover:border-orange-500 group-hover:text-white transition-all duration-300">
-                  <Phone size={20} />
+                <div className="w-12 h-12 rounded-full border border-zinc-200 dark:border-zinc-800 flex items-center justify-center group-hover:text-white transition-all duration-300">
+                  <Phone size={20} className="group-hover:text-white" />
                 </div>
                 <div>
                   <p className="text-xs uppercase tracking-wider text-zinc-400 font-bold mb-1">Phone</p>
-                  <p className="text-lg font-bold text-zinc-900 dark:text-white group-hover:text-orange-500 transition-colors">+91 9892 854 892</p>
+                  <p className="text-lg font-bold text-zinc-900 dark:text-white">
+                    <span className="group-hover:text-[#FF6B00] transition-colors">+91 9892 854 892</span>
+                  </p>
                 </div>
               </div>
             </div>
@@ -118,46 +146,30 @@ export const Contact = () => {
           <div className="bg-zinc-50 dark:bg-zinc-900/50 p-8 md:p-12 rounded-[2.5rem] mt-10 lg:mt-0">
             <form className="flex flex-col gap-8">
               
-              {/* Row 1: Name & Email */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div className="group relative">
-                  <LineInput placeholder="Full Name*" />
-                </div>
-                <div className="group relative">
-                  <LineInput placeholder="Email Address*" type="email" />
-                </div>
+                <LineInput placeholder="Full Name*" />
+                <LineInput placeholder="Email Address*" type="email" />
               </div>
 
-              {/* Row 2: Phone & Subject */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div className="group relative">
-                  <LineInput placeholder="Phone Number*" />
-                </div>
-                <div className="group relative">
-                  <LineInput placeholder="Subject*" />
-                </div>
+                <LineInput placeholder="Phone Number*" />
+                <LineInput placeholder="Subject*" />
               </div>
 
-              {/* Row 3: Company & Website */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div className="group relative">
-                  <LineInput placeholder="Company Name" />
-                </div>
-                <div className="group relative">
-                  <LineInput placeholder="Website Link" />
-                </div>
+                <LineInput placeholder="Company Name" />
+                <LineInput placeholder="Website Link" />
               </div>
 
-              {/* Services Checkboxes - Styled Minimally */}
+              {/* Services Checkboxes */}
               <div className="pt-4">
                 <p className="text-xs font-bold uppercase tracking-wider text-zinc-400 mb-4">Services Required:</p>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   {servicesList.map((service, i) => (
                     <label key={i} className="flex items-center gap-3 cursor-pointer group select-none">
-                      {/* Custom Box */}
-                      <div className="relative w-5 h-5 border-2 border-zinc-300 dark:border-zinc-700 rounded flex items-center justify-center group-hover:border-orange-500 transition-colors">
+                      <div className="relative w-5 h-5 border-2 border-zinc-300 dark:border-zinc-700 rounded flex items-center justify-center transition-colors group-hover:border-current" style={{ color: BRAND_ORANGE }}>
                         <input type="checkbox" className="peer appearance-none w-full h-full absolute inset-0 cursor-pointer" />
-                        <Check size={14} className="text-orange-500 opacity-0 peer-checked:opacity-100 transition-opacity" />
+                        <Check size={14} className="opacity-0 peer-checked:opacity-100 transition-opacity" style={{ color: BRAND_ORANGE }} />
                       </div>
                       <span className="text-sm font-medium text-zinc-600 dark:text-zinc-300 group-hover:text-zinc-900 dark:group-hover:text-white transition-colors">{service}</span>
                     </label>
@@ -166,11 +178,15 @@ export const Contact = () => {
               </div>
 
               {/* Message */}
-              <div className="group relative">
+              <div className="relative group">
                 <textarea 
                   rows={3} 
                   placeholder="Share a brief of your requirements..." 
-                  className="w-full bg-transparent border-b border-zinc-300 dark:border-zinc-700 py-3 text-lg font-medium text-zinc-900 dark:text-white placeholder:text-zinc-400 focus:outline-none focus:border-orange-500 transition-colors resize-none"
+                  className="w-full bg-transparent border-b border-zinc-300 dark:border-zinc-700 py-3 text-lg font-medium text-zinc-900 dark:text-white placeholder:text-zinc-400 focus:outline-none transition-colors resize-none peer"
+                />
+                <div 
+                  className="absolute bottom-0 left-0 w-0 h-[1px] transition-all duration-300 peer-focus:w-full" 
+                  style={{ backgroundColor: BRAND_ORANGE }}
                 />
               </div>
 
@@ -184,8 +200,11 @@ export const Contact = () => {
                       type="button"
                       onClick={() => setCaptchaSelected(i === 2 ? 'truck' : 'wrong')}
                       className={`p-2 rounded-lg transition-all ${
-                        captchaSelected === 'truck' && i === 2 ? 'bg-orange-500 text-white shadow-lg' : 'text-zinc-400 hover:bg-zinc-200 dark:hover:bg-zinc-800'
+                        captchaSelected === 'truck' && i === 2 
+                          ? 'text-white shadow-lg' 
+                          : 'text-zinc-400 hover:bg-zinc-200 dark:hover:bg-zinc-800'
                       }`}
+                      style={captchaSelected === 'truck' && i === 2 ? { backgroundColor: BRAND_ORANGE } : {}}
                     >
                       <Icon size={20} />
                     </button>
@@ -193,17 +212,22 @@ export const Contact = () => {
                 </div>
               </div>
 
-              {/* Submit Button (Pill Style for consistency with Line Theme) */}
+              {/* Submit Button - BRAND BLUE by Default, BRAND ORANGE on Hover */}
               <div className="pt-2">
                 <button 
                   type="button"
-                  className="group relative w-full py-5 rounded-full bg-zinc-900 dark:bg-white text-white dark:text-black font-bold text-lg hover:scale-[1.02] transition-transform duration-300 shadow-xl overflow-hidden"
+                  className="group relative w-full py-5 rounded-full text-white font-bold text-lg hover:scale-[1.02] transition-transform duration-300 shadow-xl overflow-hidden"
+                  style={{ backgroundColor: BRAND_BLUE }} // Default BLUE
                 >
                   <span className="relative z-10 flex items-center justify-center gap-2">
                     Send Message <ArrowUpRight size={20} className="group-hover:rotate-45 transition-transform" />
                   </span>
-                  {/* Hover Ripple Effect */}
-                  <div className="absolute inset-0 bg-orange-600 dark:bg-orange-500 translate-y-[100%] group-hover:translate-y-0 transition-transform duration-500 ease-out" />
+                  
+                  {/* HOVER RIPPLE - Fills with BRAND ORANGE */}
+                  <div 
+                    className="absolute inset-0 translate-y-[100%] group-hover:translate-y-0 transition-transform duration-500 ease-out" 
+                    style={{ backgroundColor: BRAND_ORANGE }} 
+                  />
                 </button>
               </div>
 

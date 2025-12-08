@@ -3,6 +3,10 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Linkedin } from 'lucide-react';
 
+// --- BRAND COLORS ---
+const BRAND_ORANGE = "#FF6B00";
+const BRAND_BLUE = "#2B7ABC";
+
 const teamMembers = [
   {
     name: "Kamal Abraham",
@@ -47,28 +51,41 @@ const teamMembers = [
 ];
 
 const TeamCard = ({ member }: { member: typeof teamMembers[0] }) => (
-  <div className="w-[300px] shrink-0 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl overflow-hidden hover:border-orange-500/50 transition-colors group">
+  <div className="w-[300px] shrink-0 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl overflow-hidden transition-all duration-300 group hover:shadow-xl">
+    
+    {/* Image Container */}
     <div className="h-[320px] w-full overflow-hidden relative">
       <img 
         src={member.image} 
         alt={member.name} 
         className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500 group-hover:scale-105" 
       />
-      {/* Overlay Gradient for text readability if needed */}
       <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
     </div>
     
-    <div className="p-6">
+    {/* Text Content */}
+    <div className="p-6 border-t border-zinc-100 dark:border-zinc-800 group-hover:border-orange-500/50 transition-colors" style={{ borderTopColor: 'transparent' }}>
       <h3 className="text-xl font-bold text-zinc-900 dark:text-white mb-1">{member.name}</h3>
       <p className="text-sm text-zinc-500 dark:text-zinc-400 mb-6">{member.role}</p>
       
-      <button className="flex items-center gap-2 text-xs font-bold text-zinc-400 group-hover:text-blue-600 transition-colors uppercase tracking-wider">
-        <div className="p-1.5 rounded-md bg-zinc-100 dark:bg-zinc-800 group-hover:bg-blue-100 dark:group-hover:bg-blue-900/30">
-          <Linkedin size={16} />
+      {/* LinkedIn Button - BRAND BLUE on Hover */}
+      <button className="flex items-center gap-2 text-xs font-bold text-zinc-400 transition-colors uppercase tracking-wider group/btn">
+        <div 
+          className="p-1.5 rounded-md bg-zinc-100 dark:bg-zinc-800 transition-colors group-hover/btn:text-white"
+          // We use inline styles for specific brand color hovers that Tailwind classes can't always target dynamically in groups easily without custom config
+        >
+          <Linkedin size={16} className="group-hover/btn:text-[#2B7ABC]" />
         </div>
-        LinkedIn
+        <span className="group-hover/btn:text-[#2B7ABC] transition-colors">LinkedIn</span>
       </button>
     </div>
+
+    {/* Hover Border Effect (Brand Orange) */}
+    <style jsx>{`
+      .group:hover {
+        border-color: ${BRAND_ORANGE};
+      }
+    `}</style>
   </div>
 );
 
@@ -85,9 +102,11 @@ export const Team = () => {
         className="max-w-7xl mx-auto px-6 mb-16 flex flex-col md:flex-row justify-between items-end gap-8"
       >
         <div>
-          <h2 className="text-4xl md:text-6xl font-bold text-zinc-900 dark:text-white mb-4">
-            The talented team behind <br />
-            <span className="text-orange-500">the creative design</span>
+          <h2 className="text-4xl md:text-6xl font-bold mb-4 leading-tight">
+            {/* Brand Blue Text */}
+            <span style={{ color: BRAND_BLUE }}>The talented team behind</span> <br />
+            {/* Brand Orange Text */}
+            <span style={{ color: BRAND_ORANGE }}>the creative design</span>
           </h2>
         </div>
         <p className="text-zinc-600 dark:text-zinc-400 max-w-sm text-lg">
@@ -97,7 +116,7 @@ export const Team = () => {
 
       <div className="flex flex-col gap-8">
         
-        {/* 2. Top Row Animation (Slides up with delay) */}
+        {/* 2. Top Row Animation */}
         <motion.div
           initial={{ opacity: 0, y: 150 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -105,7 +124,6 @@ export const Team = () => {
           transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
           className="flex overflow-hidden"
         >
-          {/* Infinite Scroll Inner Loop */}
           <motion.div 
             initial={{ x: 0 }}
             animate={{ x: "-50%" }}
@@ -119,7 +137,7 @@ export const Team = () => {
           </motion.div>
         </motion.div>
 
-        {/* 3. Bottom Row Animation (Slides up with more delay) */}
+        {/* 3. Bottom Row Animation */}
         <motion.div
           initial={{ opacity: 0, y: 150 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -127,7 +145,6 @@ export const Team = () => {
           transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
           className="flex overflow-hidden"
         >
-          {/* Infinite Scroll Inner Loop */}
           <motion.div 
             initial={{ x: "-50%" }}
             animate={{ x: 0 }}

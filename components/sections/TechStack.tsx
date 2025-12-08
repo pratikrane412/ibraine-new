@@ -2,6 +2,10 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 
+// --- BRAND COLORS ---
+const BRAND_BLUE = "#2B7ABC";
+const BRAND_ORANGE = "#FF6B00";
+
 // --- Data: Technologies ---
 const row1 = [
   { name: "Next.js", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg" },
@@ -63,9 +67,13 @@ export const TechStack = () => {
   return (
     <section className="py-24 bg-white dark:bg-black overflow-hidden relative">
       <div className="max-w-7xl mx-auto px-6 mb-16 text-center">
-        <h2 className="text-3xl md:text-5xl font-bold text-zinc-900 dark:text-white mb-6">
-          Powered by <span className="text-orange-500">Modern Tech</span>
+        
+        {/* UPDATED HEADING COLORS */}
+        <h2 className="text-3xl md:text-5xl font-bold mb-6">
+          <span style={{ color: BRAND_BLUE }}>Powered by</span>{' '}
+          <span style={{ color: BRAND_ORANGE }}>Modern Tech</span>
         </h2>
+        
         <p className="text-zinc-500 dark:text-zinc-400 text-lg max-w-2xl mx-auto">
           We use the latest frameworks and tools to build scalable, high-performance digital solutions.
         </p>

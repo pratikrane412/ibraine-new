@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, ChevronDown, ArrowRight } from 'lucide-react'; // Added ChevronDown, ArrowRight
 import { Button } from '@/components/ui/Button';
-import { ThemeToggle } from '@/components/ui/ThemeToggle';
+
 
 // Define the sub-menu items
 const serviceLinks = [
@@ -114,7 +114,7 @@ export const Navbar = () => {
           {/* Actions: Theme Toggle + CTA */}
           <div className="hidden md:flex items-center gap-4">
             <div className="w-px h-6 bg-zinc-300 dark:bg-white/10 mx-2"></div>
-            <ThemeToggle />
+            
             <Button variant="primary" className="!py-2.5 !px-6 text-sm h-10 shadow-lg shadow-orange-500/20">
               Get a Quote
             </Button>
@@ -122,7 +122,7 @@ export const Navbar = () => {
 
           {/* Mobile Menu Toggle */}
           <div className="md:hidden flex items-center gap-4">
-            <ThemeToggle />
+           
             <button className="text-zinc-900 dark:text-white" onClick={() => setIsOpen(!isOpen)}>
               {isOpen ? <X /> : <Menu />}
             </button>

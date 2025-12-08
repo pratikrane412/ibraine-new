@@ -9,14 +9,19 @@ export const Cursor = () => {
   const cursorX = useMotionValue(-100);
   const cursorY = useMotionValue(-100);
 
-  // 2. Create Smooth Springs for the Outer Ring
-  // stiffness = speed, damping = bounciness (lower is bouncier)
-  const springConfig = { damping: 25, stiffness: 300 };
+  // 2. SLOW & SMOOTH CONFIGURATION
+  // Reduced stiffness (from 300 to 50) makes it move slower
+  // Adjusted damping prevents it from wobbling too much
+  const springConfig = { 
+    damping: 20, 
+    stiffness: 50, 
+    mass: 1 
+  };
+  
   const cursorXSpring = useSpring(cursorX, springConfig);
   const cursorYSpring = useSpring(cursorY, springConfig);
 
   useEffect(() => {
-    // Show cursor only after first movement to avoid jumping
     const moveCursor = (e: MouseEvent) => {
       cursorX.set(e.clientX);
       cursorY.set(e.clientY);
@@ -27,7 +32,7 @@ export const Cursor = () => {
     return () => window.removeEventListener("mousemove", moveCursor);
   }, [cursorX, cursorY, isVisible]);
 
-  // Hide on mobile devices (touch screens)
+  // Hide on mobile devices
   if (typeof window !== "undefined" && window.matchMedia("(pointer: coarse)").matches) {
     return null;
   }
@@ -36,31 +41,29 @@ export const Cursor = () => {
     <div className={`fixed inset-0 z-[9999] pointer-events-none transition-opacity duration-300 ${isVisible ? "opacity-100" : "opacity-0"}`}>
       
       {/* 
-         OUTER RING (Smooth Follower) 
-         We subtract half the width/height (24px) to center it perfectly
+         OUTER RING (Slow Follower) 
       */}
       <motion.div
         style={{
           translateX: cursorXSpring,
           translateY: cursorYSpring,
-          left: -24, // Half of w-12
-          top: -24,  // Half of h-12
+          left: -24, 
+          top: -24,
         }}
-        className="fixed w-12 h-12 border border-zinc-800 dark:border-white rounded-full pointer-events-none"
+        className="fixed w-12 h-12 border border-zinc-500 dark:border-white/50 rounded-full pointer-events-none"
       />
 
       {/* 
          INNER DOT (Instant Movement) 
-         We subtract half the width/height (4px) to center it perfectly
       */}
       <motion.div
         style={{
           translateX: cursorX,
           translateY: cursorY,
-          left: -4, // Half of w-2
-          top: -4,  // Half of h-2
+          left: -4, 
+          top: -4, 
         }}
-        className="fixed w-2 h-2 bg-zinc-900 dark:bg-white rounded-full pointer-events-none"
+        className="fixed w-2 h-2 bg-orange-500 rounded-full pointer-events-none"
       />
     </div>
   );
