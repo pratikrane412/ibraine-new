@@ -1,6 +1,6 @@
 "use client";
-import React from 'react';
-import { motion } from 'framer-motion';
+import React from "react";
+import { motion } from "framer-motion";
 
 // --- BRAND COLORS ---
 const BRAND_BLUE = "#2B7ABC";
@@ -32,7 +32,7 @@ const row2 = [
   { name: "HUL", src: "/clients/HUL.jpg" },
   { name: "Laumière", src: "/clients/Laumiere.png" },
   { name: "Live Pages", src: "/clients/Livepages.png" },
-  { name: "Lullabies", src: "/clients/Lullabies.png" }, 
+  { name: "Lullabies", src: "/clients/Lullabies.png" },
   { name: "LuvEssentials", src: "/clients/luvessentials.jpg" },
   { name: "Magma HDI", src: "/clients/Magma.png" },
   { name: "MediTac", src: "/clients/Meditac.png" },
@@ -51,32 +51,41 @@ const row3 = [
   { name: "Thorny Affair", src: "/clients/ThornyAffairs.png" },
   { name: "Treat Resorts", src: "/clients/TreatResort.png" },
   { name: "TSP", src: "/clients/TruckSuspension.jpg" },
-  { name: "Vastu", src: "/clients/VastuEnergetics.png" }, 
+  { name: "Vastu", src: "/clients/VastuEnergetics.png" },
   { name: "Futurz4", src: "/clients/Futurz4x4 Logo.webp" },
 ];
 
-const MarqueeRow = ({ items, speed = 40 }: { items: any[], speed?: number }) => (
+const MarqueeRow = ({
+  items,
+  speed = 40,
+}: {
+  items: any[];
+  speed?: number;
+}) => (
   <div className="flex overflow-hidden relative w-full">
     <motion.div
       initial={{ x: "-100%" }} // Start from Left
-      animate={{ x: "0%" }}    // Move to Right
+      animate={{ x: "0%" }} // Move to Right
       transition={{ duration: speed, repeat: Infinity, ease: "linear" }}
       className="flex gap-6 pr-6 min-w-full"
     >
       {[...items, ...items].map((logo, i) => (
-        <div 
-          key={i} 
+        <div
+          key={i}
           // 1. INCREASED SIZE: w-52 h-32 (was w-48 h-28)
           // 2. REDUCED PADDING: p-3 (was p-6) -> Logos look much bigger
           // 3. WHITE BACKGROUND: bg-white in BOTH modes ensures visibility for all logo types (JPG/PNG)
           className="w-52 h-32 bg-white border border-zinc-200 rounded-xl flex items-center justify-center p-3 shrink-0 shadow-sm hover:shadow-lg hover:border-orange-500/50 transition-all duration-300"
         >
-          <img 
-            src={logo.src} 
-            alt={logo.name} 
+          <img
+            src={logo.src}
+            alt={logo.name}
             // Removed specific dark mode filters so logos stay true to original files
             className="w-full h-full object-contain hover:scale-110 transition-transform duration-300"
-            onError={(e) => { e.currentTarget.src = "https://placehold.co/200x100?text=" + logo.name }}
+            onError={(e) => {
+              e.currentTarget.src =
+                "https://placehold.co/200x100?text=" + logo.name;
+            }}
           />
         </div>
       ))}
@@ -88,7 +97,6 @@ export const TrustGrid = () => {
   return (
     <section className="py-24 bg-zinc-50 dark:bg-zinc-950 overflow-hidden relative">
       <div className="max-w-[1400px] mx-auto px-6">
-        
         {/* Header */}
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-5xl font-bold mb-4">
@@ -102,7 +110,6 @@ export const TrustGrid = () => {
 
         {/* MARQUEE CONTAINER */}
         <div className="flex flex-col gap-6 relative">
-          
           {/* Side Fade Masks */}
           <div className="absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-zinc-50 dark:from-zinc-950 to-transparent z-10 pointer-events-none" />
           <div className="absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-zinc-50 dark:from-zinc-950 to-transparent z-10 pointer-events-none" />
@@ -115,9 +122,7 @@ export const TrustGrid = () => {
 
           {/* Row 3 - Speed 45s */}
           <MarqueeRow items={row3} speed={45} />
-
         </div>
-
       </div>
     </section>
   );
