@@ -20,6 +20,7 @@ const row1 = [
   { name: "DLOK", src: "/clients/Dlok.png" },
   { name: "Elevation", src: "/clients/ElevationInterior.png" },
   { name: "Finzard", src: "/clients/Finzard.png" },
+  { name: "BLL", src: "/clients/Bottoms Love Logo.webp" },
 ];
 
 const row2 = [
@@ -35,6 +36,7 @@ const row2 = [
   { name: "LuvEssentials", src: "/clients/luvessentials.jpg" },
   { name: "Magma HDI", src: "/clients/Magma.png" },
   { name: "MediTac", src: "/clients/Meditac.png" },
+  { name: "EMC", src: "/clients/Emrik Cakes Logo.webp" },
 ];
 
 const row3 = [
@@ -50,6 +52,7 @@ const row3 = [
   { name: "Treat Resorts", src: "/clients/TreatResort.png" },
   { name: "TSP", src: "/clients/TruckSuspension.jpg" },
   { name: "Vastu", src: "/clients/VastuEnergetics.png" }, 
+  { name: "Futurz4", src: "/clients/Futurz4x4 Logo.webp" },
 ];
 
 const MarqueeRow = ({ items, speed = 40 }: { items: any[], speed?: number }) => (
