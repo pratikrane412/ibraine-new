@@ -9,7 +9,6 @@ import { Testimonials } from '@/components/sections/Testimonials';
 import { Footer } from '@/components/layout/Footer';
 import { Team } from '@/components/sections/Team';
 import { WhyChooseUs } from '@/components/sections/WhyChooseUs';
-import { WorkShowcase } from '@/components/sections/WorkShowcase';
 import { TechStack } from '@/components/sections/TechStack';
 import { Contact } from '@/components/sections/Contact';
 import { VerifiedBy } from '@/components/sections/VerifiedBy';
