@@ -4,10 +4,11 @@ import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from
 import { 
   ArrowRight, 
   Search, 
-  MousePointerClick, 
+  Zap, 
   BarChart2, 
   Share2, 
-  Mail 
+  Users,
+  Monitor
 } from 'lucide-react';
 
 const services = [
@@ -15,41 +16,49 @@ const services = [
     id: "seo",
     title: "Search Engine Optimization",
     icon: Search,
-    shortDesc: "Health and care consulting refers to the practice of providing expert advice.",
+    shortDesc: "Improve your organic visibility and drive high-quality traffic to your website.",
     details: ["Technical SEO Audits", "Semantic Keyword Strategy", "High-Authority Backlinking", "Local SEO Dominance"],
-    image: "https://images.unsplash.com/photo-1557804506-669a67965ba0?q=80&w=2574&auto=format&fit=crop"
+    image: "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?q=80&w=2568&auto=format&fit=crop"
   },
   {
-    id: "ppc",
-    title: "Paid Search Marketing",
-    icon: MousePointerClick,
-    shortDesc: "Helping clients improve their marketing and sales strategies to increase value.",
-    details: ["Google Ads Management", "RoAS Optimization", "A/B Creative Testing", "Retargeting Campaigns"],
+    id: "performance",
+    title: "Performance Marketing",
+    icon: Zap,
+    shortDesc: "Data-driven campaigns on Google & Meta focused purely on ROI and conversions.",
+    details: ["Google Ads Management", "Meta (Facebook/Insta) Ads", "A/B Creative Testing", "Retargeting Campaigns"],
     image: "https://images.unsplash.com/photo-1533750516457-a7f992034fec?q=80&w=2612&auto=format&fit=crop"
-  },
-  {
-    id: "cro",
-    title: "Conversion Rate Optimization",
-    icon: BarChart2,
-    shortDesc: "Health and care consulting refers to the practice of providing expert advice.",
-    details: ["User Journey Mapping", "Heatmap Analysis", "Landing Page Redesign", "Checkout Funnel Optimization"],
-    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2670&auto=format&fit=crop"
   },
   {
     id: "social",
     title: "Social Media Marketing",
     icon: Share2,
-    shortDesc: "Health and care consulting refers to the practice of providing expert advice.",
-    details: ["Social Media Design", "Custom Ad Strategy", "Social Media Management", "Unique Ads Campaigns"],
-    image: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop"
+    shortDesc: "Build brand awareness and engage deeply with your audience across all platforms.",
+    details: ["Content Strategy & Creation", "Community Management", "Influencer Collaborations", "Viral Campaigns"],
+    image: "https://images.unsplash.com/photo-1611162617474-5b21e879e113?q=80&w=2574&auto=format&fit=crop"
   },
   {
-    id: "email",
-    title: "Email Marketing Solutions",
-    icon: Mail,
-    shortDesc: "Providing financial advice, including cost reduction strategies and risk management.",
-    details: ["Automated Drip Sequences", "Newsletter Design", "List Segmentation", "Re-engagement Campaigns"],
-    image: "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?q=80&w=2670&auto=format&fit=crop"
+    id: "analytics",
+    title: "Google Analytics",
+    icon: BarChart2,
+    shortDesc: "Stop guessing. Deep dive into data to understand user behavior and optimize flow.",
+    details: ["GA4 Migration & Setup", "Custom Reporting Dashboards", "User Journey Mapping", "Conversion Rate Optimization"],
+    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2670&auto=format&fit=crop"
+  },
+  {
+    id: "affiliate",
+    title: "Affiliate Marketing",
+    icon: Users,
+    shortDesc: "Expand your reach through strategic partnerships and performance-based networks.",
+    details: ["Partner Network Setup", "Commission Structure Strategy", "Affiliate Recruitment", "Performance Tracking"],
+    image: "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?q=80&w=2568&auto=format&fit=crop"
+  },
+  {
+    id: "web",
+    title: "Web Design & Development",
+    icon: Monitor,
+    shortDesc: "Create stunning, high-performance digital experiences that convert visitors into customers.",
+    details: ["Custom UI/UX Design", "Next.js & React Development", "E-commerce Solutions", "Interactive 3D Experiences"],
+    image: "https://images.unsplash.com/photo-1547658719-da2b51169166?q=80&w=2564&auto=format&fit=crop"
   }
 ];
 
@@ -98,7 +107,6 @@ export const Services = () => {
             return (
               <div 
                 key={service.id}
-                // CHANGE 1: Expand on Hover
                 onMouseEnter={() => setActiveId(service.id)}
                 onMouseLeave={() => setActiveId(null)}
                 className={`border-b border-zinc-200 dark:border-zinc-800 transition-colors duration-300 ${
@@ -190,7 +198,7 @@ export const Services = () => {
         {activeId && (
           <motion.div
             initial={{ opacity: 0, scale: 0.5 }}
-            animate={{ opacity: 0.85, scale: 1 }} // CHANGE 2: Opacity 0.85 for Transparency
+            animate={{ opacity: 0.85, scale: 1 }} 
             exit={{ opacity: 0, scale: 0.5 }}
             transition={{ duration: 0.3 }}
             style={{ 

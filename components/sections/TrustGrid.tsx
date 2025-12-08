@@ -114,16 +114,9 @@ export const TrustGrid = () => {
               viewport={{ once: true }}
               transition={{ delay: i * 0.05, duration: 0.4 }}
               whileHover={{ y: -5 }}
-              // Modified container background for better visibility of dark logos in dark mode
-              className="h-32 bg-white dark:bg-zinc-200 border border-zinc-200 dark:border-white/5 rounded-2xl flex items-center justify-center p-8 cursor-default transition-all group hover:border-orange-500/30 dark:hover:border-white/20 hover:shadow-lg dark:shadow-none"
+              // CHANGED: Reduced height to h-24 and padding to p-6 to make logos smaller
+              className="h-24 bg-white dark:bg-zinc-200 border border-zinc-200 dark:border-white/5 rounded-2xl flex items-center justify-center p-6 cursor-default transition-all group hover:border-orange-500/30 dark:hover:border-white/20 hover:shadow-lg dark:shadow-none"
             >
-              {/* 
-                  UPDATED IMAGE CLASS:
-                  - Removed 'grayscale'
-                  - Removed 'opacity-60'
-                  - Removed 'dark:invert'
-                  - Result: Original Brand Colors Always Visible
-              */}
               <img
                 src={brand.src}
                 alt={brand.name}
