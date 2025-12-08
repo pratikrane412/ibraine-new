@@ -13,7 +13,7 @@ const row1 = [
   { name: "Arti Genius", src: "/clients/Artigenius.png" },
   { name: "Best TV", src: "/clients/besttv.png" },
   { name: "Billabong High", src: "/clients/billabong.jpg" },
-  { name: "Bluehost", src: "/clients/bluehost.png" },
+  { name: "Bluehost", src: "/clients/Bluehost.png" },
   { name: "Brag Packer", src: "/clients/bragpacker.png" },
   { name: "Choupette", src: "/clients/Choupette.jpg" },
   { name: "Cloud Dhobi", src: "/clients/CloudDhobi.jpg" },
