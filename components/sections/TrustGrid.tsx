@@ -61,23 +61,21 @@ const MarqueeRow = ({ items, speed = 40 }: { items: any[], speed?: number }) => 
       initial={{ x: "-100%" }} // Start from Left
       animate={{ x: "0%" }}    // Move to Right
       transition={{ duration: speed, repeat: Infinity, ease: "linear" }}
-      className="flex gap-8 pr-8 min-w-full"
+      className="flex gap-6 pr-6 min-w-full"
     >
       {[...items, ...items].map((logo, i) => (
         <div 
           key={i} 
-          className="w-48 h-28 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl flex items-center justify-center p-6 shrink-0 shadow-sm hover:shadow-lg hover:border-orange-500/30 transition-all duration-300"
+          // 1. INCREASED SIZE: w-52 h-32 (was w-48 h-28)
+          // 2. REDUCED PADDING: p-3 (was p-6) -> Logos look much bigger
+          // 3. WHITE BACKGROUND: bg-white in BOTH modes ensures visibility for all logo types (JPG/PNG)
+          className="w-52 h-32 bg-white border border-zinc-200 rounded-xl flex items-center justify-center p-3 shrink-0 shadow-sm hover:shadow-lg hover:border-orange-500/50 transition-all duration-300"
         >
-          {/* 
-             UPDATED IMAGE:
-             - Removed 'grayscale' class
-             - Removed 'dark:invert' class
-             - Added 'dark:drop-shadow' to make black logos visible on dark backgrounds without changing their color
-          */}
           <img 
             src={logo.src} 
             alt={logo.name} 
-            className="w-full h-full object-contain transition-transform duration-300 hover:scale-110 dark:drop-shadow-[0_0_5px_rgba(255,255,255,0.8)]"
+            // Removed specific dark mode filters so logos stay true to original files
+            className="w-full h-full object-contain hover:scale-110 transition-transform duration-300"
             onError={(e) => { e.currentTarget.src = "https://placehold.co/200x100?text=" + logo.name }}
           />
         </div>
@@ -102,12 +100,10 @@ export const TrustGrid = () => {
           </p>
         </div>
 
-        {/* 
-           MARQUEE CONTAINER 
-        */}
-        <div className="flex flex-col gap-8 relative">
+        {/* MARQUEE CONTAINER */}
+        <div className="flex flex-col gap-6 relative">
           
-          {/* Side Fade Masks for "Infinite" illusion */}
+          {/* Side Fade Masks */}
           <div className="absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-zinc-50 dark:from-zinc-950 to-transparent z-10 pointer-events-none" />
           <div className="absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-zinc-50 dark:from-zinc-950 to-transparent z-10 pointer-events-none" />
 
