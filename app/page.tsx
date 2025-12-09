@@ -12,6 +12,7 @@ import { WhyChooseUs } from '@/components/sections/WhyChooseUs';
 import { TechStack } from '@/components/sections/TechStack';
 import { Contact } from '@/components/sections/Contact';
 import { VerifiedBy } from '@/components/sections/VerifiedBy';
+import { AboutPreview } from '@/components/sections/AboutPreview';
 
 export default function Home() {
   return (
@@ -19,9 +20,10 @@ export default function Home() {
       <Navbar />
       <Hero />
       <Clients />
+      <TrustGrid />
+      <AboutPreview />  
       <Services />
       <TechStack />
-      <TrustGrid />
       <Stats />
       <Process />
       <Team />
