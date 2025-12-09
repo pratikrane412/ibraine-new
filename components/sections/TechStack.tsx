@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import { motion } from "framer-motion";
-import Image from 'next/image';
+import Image from "next/image";
 
 // --- BRAND COLORS ---
 const BRAND_BLUE = "#2B7ABC";
@@ -11,23 +11,30 @@ const BRAND_ORANGE = "#FF6B00";
 // Ensure you have the `row1` and `row2` arrays here
 
 const row1 = [
-  { name: "Next.js", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg" },
-  { name: "React", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" },
-  { name: "TypeScript", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" },
-  { name: "Tailwind", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg" },
-  { name: "Node.js", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" },
-  { name: "Python", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" },
-  { name: "Figma", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg" },
+  { name: "Next.js", icon: "/tech/Next.js.png" },
+  { name: "React", icon: "/tech/React.png" },
+  { name: "Angular", icon: "/tech/Angular.png" },
+  { name: "TypeScript", icon: "/tech/TypeScript.png" },
+  { name: "Tailwind", icon: "/tech/Tailwind CSS.png" },
+  { name: "Django", icon: "/tech/Django.png" },
+  { name: "FastAPI", icon: "/tech/FastAPI.png" },
+  { name: "Android", icon: "/tech/Android.png" },
+  { name: "Node.js", icon: "/tech/Node.js.png" },
+  { name: "Python", icon: "/tech/Python.png" },
+  { name: "AWS", icon: "/tech/AWS.png" },
+  { name: "MongoDB", icon: "/tech/MongoDB.png" },
 ];
 
 const row2 = [
-  { name: "AWS", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original-wordmark.svg" },
-  { name: "Docker", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" },
-  { name: "PostgreSQL", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg" },
-  { name: "MongoDB", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg" },
-  { name: "Vercel", icon: "https://assets.vercel.com/image/upload/v1588805858/repositories/vercel/logo.png" },
-  { name: "Three.js", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/threejs/threejs-original.svg" },
-  { name: "Framer", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/framermotion/framermotion-original.svg" },
+  { name: "Figma", icon: "/tech/Figma.png" },
+  { name: "Canva", icon: "/tech/Canva.png" },
+  { name: "Adobe Photoshop", icon: "/tech/Adobe Photoshop.png" },
+  { name: "Adobe Illustrator", icon: "/tech/Adobe Illustrator.png" },
+  { name: "Shopify", icon: "/tech/Shopify.png" },
+  { name: "Google Analytics", icon: "/tech/Google Analytics.png" },
+  { name: "Meta", icon: "/tech/Meta.png" },
+  { name: "Google Ads", icon: "/tech/Google Ads.png" },
+  { name: "WordPress", icon: "/tech/WordPress.png" },
 ];
 
 // --- Sub-Component: Tech Card ---
@@ -97,8 +104,8 @@ export const TechStack = () => {
       <div className="flex flex-col gap-6 relative">
         <div className="absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-white dark:from-black to-transparent z-10 pointer-events-none" />
         <div className="absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-white dark:from-black to-transparent z-10 pointer-events-none" />
-        <MarqueeRow items={row1} direction="left" speed={30} />
-        <MarqueeRow items={row2} direction="right" speed={30} />
+        <MarqueeRow items={row1} direction="left" speed={35} />
+        <MarqueeRow items={row2} direction="right" speed={35} />
       </div>
     </section>
   );

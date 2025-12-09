@@ -15,9 +15,13 @@ import {
   Share2,
   Users,
   Monitor,
+  PenTool, // For Design
+  Smartphone, // For App
+  Layers, // For UI/UX
 } from "lucide-react";
 import Image from "next/image";
 
+// UPDATED SERVICES LIST
 const services = [
   {
     id: "seo",
@@ -32,22 +36,82 @@ const services = [
       "Local SEO Dominance",
     ],
     image:
-      "https://images.unsplash.com/photo-1547658719-da2b51169166?q=80&w=2564&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1432888498266-38ffec3eaf0a?q=80&w=2674&auto=format&fit=crop",
   },
   {
-    id: "performance",
-    title: "Performance Marketing",
+    id: "paid-ads",
+    title: "Paid Advertising (Google Ads)",
     icon: Zap,
     shortDesc:
-      "Data-driven campaigns on Google & Meta focused purely on ROI and conversions.",
+      "Maximize ROI with precision-targeted campaigns on Google Search and Display networks.",
     details: [
-      "Google Ads Management",
-      "Meta (Facebook/Insta) Ads",
-      "A/B Creative Testing",
-      "Retargeting Campaigns",
+      "Google Search Campaigns",
+      "Display & Retargeting",
+      "Shopping Ads Setup",
+      "Conversion Tracking",
     ],
     image:
       "https://images.unsplash.com/photo-1533750516457-a7f992034fec?q=80&w=2612&auto=format&fit=crop",
+  },
+  {
+    id: "ui-ux",
+    title: "UI & UX Design",
+    icon: Layers,
+    shortDesc:
+      "Craft intuitive and engaging user experiences that delight customers and drive retention.",
+    details: [
+      "User Research & Personas",
+      "Wireframing & Prototyping",
+      "Visual Design Systems",
+      "Usability Testing",
+    ],
+    image:
+      "https://images.unsplash.com/photo-1581291518633-83b4ebd1d83e?q=80&w=2670&auto=format&fit=crop",
+  },
+  {
+    id: "app-dev",
+    title: "App Development",
+    icon: Smartphone,
+    shortDesc:
+      "Build powerful mobile applications for iOS and Android that scale with your business.",
+    details: [
+      "React Native Development",
+      "Native iOS & Android",
+      "App Store Optimization",
+      "Maintenance & Support",
+    ],
+    image:
+      "https://images.unsplash.com/photo-1551650975-87deedd944c3?q=80&w=2674&auto=format&fit=crop",
+  },
+  {
+    id: "branding",
+    title: "Design & Branding",
+    icon: PenTool,
+    shortDesc:
+      "Create a memorable brand identity that resonates with your target audience.",
+    details: [
+      "Logo Design & Identity",
+      "Brand Guidelines",
+      "Packaging Design",
+      "Marketing Collateral",
+    ],
+    image:
+      "https://images.unsplash.com/photo-1558655146-d09347e92766?q=80&w=2664&auto=format&fit=crop",
+  },
+  {
+    id: "web-dev",
+    title: "Web Design & Development",
+    icon: Monitor,
+    shortDesc:
+      "Create stunning, high-performance websites that convert visitors into customers.",
+    details: [
+      "Custom Next.js Sites",
+      "E-commerce Solutions",
+      "CMS Integration",
+      "Interactive 3D Experiences",
+    ],
+    image:
+      "https://images.unsplash.com/photo-1547658719-da2b51169166?q=80&w=2564&auto=format&fit=crop",
   },
   {
     id: "social",
@@ -56,9 +120,9 @@ const services = [
     shortDesc:
       "Build brand awareness and engage deeply with your audience across all platforms.",
     details: [
-      "Content Strategy & Creation",
+      "Content Strategy",
       "Community Management",
-      "Influencer Collaborations",
+      "Influencer Marketing",
       "Viral Campaigns",
     ],
     image:
@@ -71,43 +135,13 @@ const services = [
     shortDesc:
       "Stop guessing. Deep dive into data to understand user behavior and optimize flow.",
     details: [
-      "GA4 Migration & Setup",
-      "Custom Reporting Dashboards",
+      "GA4 Setup",
+      "Custom Dashboards",
       "User Journey Mapping",
-      "Conversion Rate Optimization",
+      "Conversion Optimization",
     ],
     image:
       "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2670&auto=format&fit=crop",
-  },
-  {
-    id: "affiliate",
-    title: "Affiliate Marketing",
-    icon: Users,
-    shortDesc:
-      "Expand your reach through strategic partnerships and performance-based networks.",
-    details: [
-      "Partner Network Setup",
-      "Commission Structure Strategy",
-      "Affiliate Recruitment",
-      "Performance Tracking",
-    ],
-    image:
-      "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?q=80&w=2568&auto=format&fit=crop",
-  },
-  {
-    id: "web",
-    title: "Web Design & Development",
-    icon: Monitor,
-    shortDesc:
-      "Create stunning, high-performance digital experiences that convert visitors into customers.",
-    details: [
-      "Custom UI/UX Design",
-      "Next.js & React Development",
-      "E-commerce Solutions",
-      "Interactive 3D Experiences",
-    ],
-    image:
-      "https://images.unsplash.com/photo-1547658719-da2b51169166?q=80&w=2564&auto=format&fit=crop",
   },
 ];
 
@@ -280,7 +314,6 @@ export const Services = () => {
                     key={s.id}
                     src={s.image}
                     alt={s.title}
-                    // FIXED: Added Width and Height
                     width={400}
                     height={300}
                     className="w-full h-full object-cover"
