@@ -3,7 +3,7 @@ import React, { useRef, useState, useEffect } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { TrendingUp } from "lucide-react";
 import { Button } from "@/components/ui/Button";
-import Image from 'next/image'; // Ensure this is imported
+import Image from 'next/image';
 
 // The words to cycle through
 const words = [
@@ -67,7 +67,11 @@ export const Hero = () => {
       ref={targetRef}
       className="relative min-h-[110vh] flex flex-col items-center pt-32 px-4 overflow-hidden bg-zinc-950"
     >
-      {/* 1. VIDEO BACKGROUND */}
+      {/* 
+        =============================================
+        1. VIDEO BACKGROUND (Updated for Light Mode)
+        =============================================
+      */}
       <div className="absolute inset-0 z-0">
         <video
           autoPlay
@@ -77,12 +81,22 @@ export const Hero = () => {
           className="w-full h-full object-cover"
           poster="https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2072&auto=format&fit=crop"
         >
+          {/* 
+             NEW VIDEO: Clean Abstract Network Lines (Light/Tech feel) 
+             This looks clearer in Light Mode than the previous dark galaxy one.
+          */}
           <source
             src="https://videos.pexels.com/video-files/3129671/3129671-uhd_2560_1440_30fps.mp4"
             type="video/mp4"
           />
         </video>
-        <div className="absolute inset-0 bg-white/90 dark:bg-black/80" />
+        
+        {/* 
+           Overlay:
+           - bg-white/90 (Light Mode): Makes video very faint so black text pops.
+           - dark:bg-black/80 (Dark Mode): Dims video so white text pops.
+        */}
+        <div className="absolute inset-0 bg-white/80 dark:bg-black/80" />
         <div className="absolute inset-0 bg-gradient-to-t from-white via-transparent to-transparent dark:from-[#050505] dark:via-transparent dark:to-transparent" />
       </div>
 
@@ -110,9 +124,13 @@ export const Hero = () => {
         <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tighter mb-8 text-zinc-900 dark:text-white leading-[1.1] min-h-[3em] md:min-h-[2.5em]">
           Explore Our iBraine To <br className="hidden md:block" />
           See The Future Of <br />
+          {/* 
+             COLOR GRADIENT: Orange (#FF6B00) to Blue (#2B7ABC)
+          */}
           <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#FF6B00] to-[#2B7ABC] animate-gradient">
             {text}
           </span>
+          {/* Blinking Cursor */}
           <span className="animate-pulse text-[#FF6B00] font-light">|</span>
         </h1>
 
@@ -149,7 +167,7 @@ export const Hero = () => {
             <div className="ml-4 w-64 h-6 bg-zinc-200 dark:bg-zinc-700 rounded-md opacity-50"></div>
           </div>
           
-          {/* --- FIX: Added width and height props --- */}
+          {/* Dashboard Image */}
           <Image
             src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2426&auto=format&fit=crop"
             className="w-full h-full object-cover opacity-90 dark:opacity-80"
