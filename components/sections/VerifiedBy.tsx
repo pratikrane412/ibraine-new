@@ -124,6 +124,75 @@ const GoodFirmsBadge = () => (
   </div>
 );
 
+// --- SILICON INDIA BADGE (Laurel Wreath Style) ---
+const SiliconIndiaBadge = () => (
+  <div className="relative w-32 h-32 flex flex-col items-center justify-center p-2">
+    {/* Laurel Wreath SVG */}
+    <svg
+      viewBox="0 0 200 200"
+      className="absolute inset-0 w-full h-full text-zinc-800 dark:text-zinc-600"
+    >
+      {/* Left Branch */}
+      <path
+        fill="currentColor"
+        d="M60,160 C40,140 20,100 30,60 C32,55 40,60 38,65 C30,90 45,130 65,150 Z"
+      />
+      <path
+        fill="currentColor"
+        d="M30,60 C25,40 35,20 45,10 C48,12 45,25 40,30 C35,45 32,55 30,60 Z"
+        opacity="0.8"
+      />
+      <path
+        fill="currentColor"
+        d="M38,65 C30,80 25,100 28,120 C30,122 35,115 34,110 C32,100 36,85 38,65 Z"
+        opacity="0.7"
+      />
+
+      {/* Right Branch (Mirrored) */}
+      <path
+        fill="currentColor"
+        d="M140,160 C160,140 180,100 170,60 C168,55 160,60 162,65 C170,90 155,130 135,150 Z"
+      />
+      <path
+        fill="currentColor"
+        d="M170,60 C175,40 165,20 155,10 C152,12 155,25 160,30 C165,45 168,55 170,60 Z"
+        opacity="0.8"
+      />
+      <path
+        fill="currentColor"
+        d="M162,65 C170,80 175,100 172,120 C170,122 165,115 166,110 C168,100 164,85 162,65 Z"
+        opacity="0.7"
+      />
+
+      {/* Bottom Stem */}
+      <path
+        d="M90,170 Q100,180 110,170"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="3"
+      />
+    </svg>
+
+    {/* Center Text Content */}
+    <div className="relative z-10 flex flex-col items-center text-center mt-2">
+      <div className="flex items-baseline leading-none mb-1">
+        <span className="font-bold text-zinc-800 dark:text-white text-sm">
+          silicon
+        </span>
+        <span className="font-bold text-[#D02A2A] text-sm">india</span>
+      </div>
+
+      <div className="h-px w-full bg-zinc-300 dark:bg-zinc-700 my-1"></div>
+
+      <span className="text-[10px] font-black text-zinc-700 dark:text-zinc-300 uppercase tracking-tighter leading-tight">
+        STARTUP <br /> CITY
+      </span>
+
+      <span className="text-[8px] font-bold text-orange-500 mt-1">AWARDED</span>
+    </div>
+  </div>
+);
+
 // --- MAIN COMPONENT ---
 
 export const VerifiedBy = () => {
@@ -142,6 +211,10 @@ export const VerifiedBy = () => {
 
           <motion.div whileHover={{ scale: 1.1 }}>
             <MetaBadge />
+          </motion.div>
+
+          <motion.div whileHover={{ scale: 1.1 }}>
+            <SiliconIndiaBadge />
           </motion.div>
 
           <motion.div whileHover={{ scale: 1.1 }}>
