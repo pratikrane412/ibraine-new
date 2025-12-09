@@ -95,46 +95,40 @@ export const Contact = () => {
       <div className="max-w-[1300px] mx-auto relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24 items-start">
           {/* LEFT: Robot & Info */}
-          <div>
+          <div className="flex flex-col">
+            {/* Title */}
             <motion.h2
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="text-4xl md:text-6xl font-black leading-tight tracking-tight mb-4"
+              className="text-4xl md:text-6xl font-black leading-tight tracking-tight mb-2"
             >
-              {/* "Let's work" in BRAND ORANGE */}
               <span style={{ color: BRAND_ORANGE }}>Let's work</span> <br />
-              {/* "together" in BRAND BLUE */}
               <span style={{ color: BRAND_BLUE }}>together</span>
             </motion.h2>
 
-            <div className="-ml-10 -mt-10">
+            {/* 3D ROBOT */}
+            <div className="h-[300px] w-full relative -ml-10 mb-12">
               <Robot3D />
             </div>
 
-            <div className="space-y-6 -mt-10 relative z-20">
+            <div className="space-y-8 relative z-20 pl-4 lg:pl-8">
               {/* Email */}
               <div className="flex items-center gap-5 group cursor-pointer">
-                <div
-                  className="w-12 h-12 rounded-full border border-zinc-200 dark:border-zinc-800 flex items-center justify-center group-hover:text-white transition-all duration-300"
-                  style={{ borderColor: "inherit" }}
-                >
-                  <Mail size={20} className="group-hover:text-white" />
-                  <style jsx>{`
-                    .group:hover .rounded-full {
-                      background-color: ${BRAND_ORANGE};
-                      border-color: ${BRAND_ORANGE};
-                    }
-                  `}</style>
+                {/* 
+                   FIXED: Used explicit Tailwind arbitrary values for hover colors.
+                   text-zinc-600: Dark Grey by default (Visible on White).
+                   hover:bg-[#FF6B00]: Turns Orange on hover.
+                   hover:text-white: Icon turns White on hover.
+                */}
+                <div className="w-12 h-12 rounded-full border border-zinc-300 dark:border-zinc-800 flex items-center justify-center text-zinc-600 dark:text-zinc-400 group-hover:bg-[#FF6B00] group-hover:border-[#FF6B00] group-hover:text-white transition-all duration-300 shrink-0">
+                  <Mail size={20} />
                 </div>
                 <div>
                   <p className="text-xs uppercase tracking-wider text-zinc-400 font-bold mb-1">
                     Email
                   </p>
-                  <p
-                    className="text-lg font-bold text-zinc-900 dark:text-white transition-colors"
-                    style={{ color: "inherit" }}
-                  >
+                  <p className="text-lg font-bold text-zinc-900 dark:text-white transition-colors">
                     <span className="group-hover:text-[#FF6B00] transition-colors">
                       info@ibraine.com
                     </span>
@@ -144,8 +138,8 @@ export const Contact = () => {
 
               {/* Location */}
               <div className="flex items-center gap-5 group cursor-pointer">
-                <div className="w-12 h-12 rounded-full border border-zinc-200 dark:border-zinc-800 flex items-center justify-center group-hover:text-white transition-all duration-300">
-                  <MapPin size={20} className="group-hover:text-white" />
+                <div className="w-12 h-12 rounded-full border border-zinc-300 dark:border-zinc-800 flex items-center justify-center text-zinc-600 dark:text-zinc-400 group-hover:bg-[#FF6B00] group-hover:border-[#FF6B00] group-hover:text-white transition-all duration-300 shrink-0">
+                  <MapPin size={20} />
                 </div>
                 <div>
                   <p className="text-xs uppercase tracking-wider text-zinc-400 font-bold mb-1">
@@ -161,8 +155,8 @@ export const Contact = () => {
 
               {/* Phone */}
               <div className="flex items-center gap-5 group cursor-pointer">
-                <div className="w-12 h-12 rounded-full border border-zinc-200 dark:border-zinc-800 flex items-center justify-center group-hover:text-white transition-all duration-300">
-                  <Phone size={20} className="group-hover:text-white" />
+                <div className="w-12 h-12 rounded-full border border-zinc-300 dark:border-zinc-800 flex items-center justify-center text-zinc-600 dark:text-zinc-400 group-hover:bg-[#FF6B00] group-hover:border-[#FF6B00] group-hover:text-white transition-all duration-300 shrink-0">
+                  <Phone size={20} />
                 </div>
                 <div>
                   <p className="text-xs uppercase tracking-wider text-zinc-400 font-bold mb-1">
@@ -178,7 +172,7 @@ export const Contact = () => {
             </div>
 
             {/* Socials */}
-            <div className="mt-12 relative z-20">
+            <div className="mt-12 relative z-20 pl-4 lg:pl-8">
               <p className="text-xs uppercase tracking-widest text-zinc-400 font-bold mb-4">
                 Follow Us
               </p>
@@ -187,7 +181,7 @@ export const Contact = () => {
                   <a
                     key={idx}
                     href={social.url}
-                    className="w-12 h-12 rounded-full border border-zinc-200 dark:border-zinc-800 flex items-center justify-center text-zinc-600 dark:text-zinc-400 hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-all duration-300 hover:scale-110"
+                    className="w-12 h-12 rounded-full border border-zinc-300 dark:border-zinc-800 flex items-center justify-center text-zinc-600 dark:text-zinc-400 hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-all duration-300 hover:scale-110"
                   >
                     <social.icon />
                   </a>
@@ -197,24 +191,21 @@ export const Contact = () => {
           </div>
 
           {/* RIGHT: Detailed Line Form */}
-          <div className="bg-zinc-50 dark:bg-zinc-900/50 p-8 md:p-12 rounded-[2.5rem] mt-10 lg:mt-0">
+          <div className="bg-zinc-50 dark:bg-zinc-900/50 p-8 md:p-12 rounded-[2.5rem] mt-10 lg:mt-0 border border-zinc-200 dark:border-zinc-800 shadow-sm">
             <form className="flex flex-col gap-8">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <LineInput placeholder="Full Name*" />
                 <LineInput placeholder="Email Address*" type="email" />
               </div>
-
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <LineInput placeholder="Phone Number*" />
                 <LineInput placeholder="Subject*" />
               </div>
-
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <LineInput placeholder="Company Name" />
                 <LineInput placeholder="Website Link" />
               </div>
 
-              {/* Services Checkboxes */}
               <div className="pt-4">
                 <p className="text-xs font-bold uppercase tracking-wider text-zinc-400 mb-4">
                   Services Required:
@@ -247,7 +238,6 @@ export const Contact = () => {
                 </div>
               </div>
 
-              {/* Message */}
               <div className="relative group">
                 <textarea
                   rows={3}
@@ -260,7 +250,6 @@ export const Contact = () => {
                 />
               </div>
 
-              {/* Human Check */}
               <div className="flex flex-col sm:flex-row items-center justify-between gap-4 py-4 border-t border-b border-zinc-200 dark:border-zinc-800">
                 <p className="text-sm text-zinc-500 dark:text-zinc-400">
                   Prove you are human: Select the{" "}
@@ -294,12 +283,11 @@ export const Contact = () => {
                 </div>
               </div>
 
-              {/* Submit Button - BRAND BLUE by Default, BRAND ORANGE on Hover */}
               <div className="pt-2">
                 <button
                   type="button"
                   className="group relative w-full py-5 rounded-full text-white font-bold text-lg hover:scale-[1.02] transition-transform duration-300 shadow-xl overflow-hidden"
-                  style={{ backgroundColor: BRAND_BLUE }} // Default BLUE
+                  style={{ backgroundColor: BRAND_BLUE }}
                 >
                   <span className="relative z-10 flex items-center justify-center gap-2">
                     Send Message{" "}
@@ -308,8 +296,6 @@ export const Contact = () => {
                       className="group-hover:rotate-45 transition-transform"
                     />
                   </span>
-
-                  {/* HOVER RIPPLE - Fills with BRAND ORANGE */}
                   <div
                     className="absolute inset-0 translate-y-[100%] group-hover:translate-y-0 transition-transform duration-500 ease-out"
                     style={{ backgroundColor: BRAND_ORANGE }}
