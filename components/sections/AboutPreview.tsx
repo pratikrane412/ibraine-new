@@ -165,7 +165,7 @@ export const AboutPreview = () => {
               </p>
               
               <div className="flex items-center gap-5">
-                <div className="w-20 h-20 rounded-full bg-zinc-300 overflow-hidden shrink-0 border-2 border-orange-500">
+                <div className="w-40 h-40 rounded-full bg-zinc-300 overflow-hidden shrink-0 border-2 border-orange-500">
                    <img 
                       src="/harsh.webp" 
                       alt="Founder" 
