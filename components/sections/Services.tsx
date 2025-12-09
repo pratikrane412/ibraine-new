@@ -16,6 +16,7 @@ import {
   Users,
   Monitor,
 } from "lucide-react";
+import Image from "next/image";
 
 const services = [
   {
@@ -31,7 +32,7 @@ const services = [
       "Local SEO Dominance",
     ],
     image:
-      "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?q=80&w=2568&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1547658719-da2b51169166?q=80&w=2564&auto=format&fit=crop",
   },
   {
     id: "performance",
@@ -111,7 +112,6 @@ const services = [
 ];
 
 export const Services = () => {
-  // We now sync activeId with hoveredService for the hover-expand effect
   const [activeId, setActiveId] = useState<string | null>(null);
 
   // Mouse Position Logic
@@ -134,6 +134,8 @@ export const Services = () => {
       onMouseMove={handleMouseMove}
     >
       <div className="max-w-7xl mx-auto relative z-10">
+        
+        {/* Header */}
         <div className="mb-16 flex flex-col md:flex-row justify-between items-end gap-6">
           <div>
             <span className="inline-block py-1 px-3 rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 text-xs font-bold tracking-wider uppercase mb-4">
@@ -148,6 +150,7 @@ export const Services = () => {
           </button>
         </div>
 
+        {/* List of Services */}
         <div className="border-t border-zinc-200 dark:border-zinc-800">
           {services.map((service) => {
             const isActive = activeId === service.id;
@@ -253,9 +256,7 @@ export const Services = () => {
         </div>
       </div>
 
-      {/* 
-        FLOATING IMAGE COMPONENT 
-      */}
+      {/* FLOATING IMAGE COMPONENT */}
       <AnimatePresence>
         {activeId && (
           <motion.div
@@ -275,10 +276,13 @@ export const Services = () => {
             {services.map(
               (s) =>
                 s.id === activeId && (
-                  <img
+                  <Image
                     key={s.id}
                     src={s.image}
                     alt={s.title}
+                    // FIXED: Added Width and Height
+                    width={400}
+                    height={300}
                     className="w-full h-full object-cover"
                   />
                 )

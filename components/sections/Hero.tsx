@@ -3,6 +3,7 @@ import React, { useRef, useState, useEffect } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { TrendingUp } from "lucide-react";
 import { Button } from "@/components/ui/Button";
+import Image from 'next/image'; // Ensure this is imported
 
 // The words to cycle through
 const words = [
@@ -109,15 +110,10 @@ export const Hero = () => {
         <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tighter mb-8 text-zinc-900 dark:text-white leading-[1.1] min-h-[3em] md:min-h-[2.5em]">
           Explore Our iBraine To <br className="hidden md:block" />
           See The Future Of <br />
-          {/* 
-             UPDATED COLOR GRADIENT: 
-             From Brand Orange (orange-500) to Brand Blue (#2B7ABC) 
-          */}
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-500 to-[#2B7ABC] animate-gradient">
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#FF6B00] to-[#2B7ABC] animate-gradient">
             {text}
           </span>
-          {/* Blinking Cursor */}
-          <span className="animate-pulse text-orange-500 font-light">|</span>
+          <span className="animate-pulse text-[#FF6B00] font-light">|</span>
         </h1>
 
         <p className="text-lg md:text-xl text-zinc-600 dark:text-zinc-400 max-w-2xl mx-auto mb-10 leading-relaxed font-medium">
@@ -152,11 +148,17 @@ export const Hero = () => {
             <div className="w-3 h-3 rounded-full bg-green-400" />
             <div className="ml-4 w-64 h-6 bg-zinc-200 dark:bg-zinc-700 rounded-md opacity-50"></div>
           </div>
-          <img
+          
+          {/* --- FIX: Added width and height props --- */}
+          <Image
             src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2426&auto=format&fit=crop"
             className="w-full h-full object-cover opacity-90 dark:opacity-80"
             alt="Dashboard"
+            width={1200}
+            height={800}
+            priority
           />
+          
           <div className="absolute inset-0 bg-gradient-to-t from-white dark:from-[#050505] via-transparent to-transparent" />
         </motion.div>
 

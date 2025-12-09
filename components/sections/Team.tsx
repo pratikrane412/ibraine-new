@@ -2,6 +2,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Linkedin } from "lucide-react";
+import Image from "next/image";
 
 // --- BRAND COLORS ---
 const BRAND_ORANGE = "#FF6B00";
@@ -62,10 +63,12 @@ const TeamCard = ({ member }: { member: (typeof teamMembers)[0] }) => (
   <div className="w-[300px] shrink-0 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl overflow-hidden transition-all duration-300 group hover:shadow-xl">
     {/* Image Container */}
     <div className="h-[320px] w-full overflow-hidden relative">
-      <img
+      <Image
         src={member.image}
         alt={member.name}
-        className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500 group-hover:scale-105"
+        fill // <--- ADD THIS. It tells Next.js to fill the parent container.
+        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" // Good for performance
+        className="object-cover grayscale group-hover:grayscale-0 transition-all duration-500 group-hover:scale-105"
       />
       <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
     </div>
