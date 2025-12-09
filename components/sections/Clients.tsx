@@ -3,11 +3,11 @@ import React from "react";
 export const Clients = () => {
   const clients = [
     "MOTOEARTH",
-    "SMEDREAM",
+    "BLUEHOST",
     "WORKWISE",
-    "JOULES",
+    "HOUSE OF KHICHDI",
     "PAPITA",
-    "FITXFATLOSS",
+    "BRAGPACKER",
     "NATVENTURE",
   ];
 
