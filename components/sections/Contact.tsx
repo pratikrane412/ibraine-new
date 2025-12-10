@@ -68,7 +68,7 @@ const LineInput = ({
     <input
       type={type}
       placeholder={placeholder}
-      className="w-full bg-transparent border-b border-zinc-300 dark:border-zinc-700 py-3 text-lg font-medium text-zinc-900 dark:text-white placeholder:text-zinc-400 focus:outline-none transition-colors peer"
+      className="w-full block bg-transparent border-b border-zinc-300 dark:border-zinc-700 py-3 text-lg font-medium text-zinc-900 dark:text-white placeholder:text-zinc-400 focus:outline-none transition-colors peer"
       style={{ caretColor: BRAND_ORANGE }}
     />
     <div
@@ -115,12 +115,6 @@ export const Contact = () => {
             <div className="space-y-8 relative z-20 pl-4 lg:pl-8">
               {/* Email */}
               <div className="flex items-center gap-5 group cursor-pointer">
-                {/* 
-                   FIXED: Used explicit Tailwind arbitrary values for hover colors.
-                   text-zinc-600: Dark Grey by default (Visible on White).
-                   hover:bg-[#FF6B00]: Turns Orange on hover.
-                   hover:text-white: Icon turns White on hover.
-                */}
                 <div className="w-12 h-12 rounded-full border border-zinc-300 dark:border-zinc-800 flex items-center justify-center text-zinc-600 dark:text-zinc-400 group-hover:bg-[#FF6B00] group-hover:border-[#FF6B00] group-hover:text-white transition-all duration-300 shrink-0">
                   <Mail size={20} />
                 </div>
@@ -238,11 +232,13 @@ export const Contact = () => {
                 </div>
               </div>
 
-              <div className="relative group">
+              {/* FIX: Added 'mb-6' for spacing and 'block' to textarea to fix orange line alignment */}
+              <div className="relative group mb-6">
                 <textarea
                   rows={3}
                   placeholder="Share a brief of your requirements..."
-                  className="w-full bg-transparent border-b border-zinc-300 dark:border-zinc-700 py-3 text-lg font-medium text-zinc-900 dark:text-white placeholder:text-zinc-400 focus:outline-none transition-colors resize-none peer"
+                  className="w-full block bg-transparent border-b border-zinc-300 dark:border-zinc-700 py-3 text-lg font-medium text-zinc-900 dark:text-white placeholder:text-zinc-400 focus:outline-none transition-colors resize-none peer"
+                  style={{ caretColor: BRAND_ORANGE }}
                 />
                 <div
                   className="absolute bottom-0 left-0 w-0 h-[1px] transition-all duration-300 peer-focus:w-full"

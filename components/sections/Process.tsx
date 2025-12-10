@@ -1,160 +1,222 @@
 "use client";
-import React from "react";
-import { motion } from "framer-motion";
-import { FileSearch, Map, Rocket, BarChart3 } from "lucide-react";
+import React, { useRef } from "react";
+import { motion, useScroll, useTransform, useSpring } from "framer-motion";
+import { FileSearch, Map, Rocket, BarChart3, CheckCircle2 } from "lucide-react";
 
+// --- DATA (iBraine Content & Colors) ---
 const steps = [
   {
     id: "01",
     title: "Deep Audit",
     desc: "We start off with a proposal to understand your requirements and provide a quote. We ensure that you are satisfied with the proposal.",
     icon: FileSearch,
+    color: "bg-blue-600",
+    text: "text-blue-600",
+    border: "border-blue-200",
+    shadow: "shadow-blue-500/20",
+    img: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=2070&auto=format&fit=crop"
   },
   {
     id: "02",
     title: "Strategy",
     desc: "We build a custom roadmap focusing on high-impact keywords and conversion rate optimization to ensure growth.",
     icon: Map,
+    color: "bg-orange-500",
+    text: "text-orange-600",
+    border: "border-orange-200",
+    shadow: "shadow-orange-500/20",
+    img: "https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=2070&auto=format&fit=crop"
   },
   {
     id: "03",
     title: "Execution",
     desc: "Our team deploys code updates, content, and ad campaigns while you focus on running your business.",
     icon: Rocket,
+    color: "bg-blue-600",
+    text: "text-blue-600",
+    border: "border-blue-200",
+    shadow: "shadow-blue-500/20",
+    img: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=2070&auto=format&fit=crop"
   },
   {
     id: "04",
     title: "Scale",
     desc: "We analyze data weekly to cut waste and double down on what drives revenue, ensuring long-term dominance.",
     icon: BarChart3,
+    color: "bg-orange-500",
+    text: "text-orange-600",
+    border: "border-orange-200",
+    shadow: "shadow-orange-500/20",
+    img: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2015&auto=format&fit=crop"
   },
 ];
 
-// Connector: Darker in Light Mode for visibility
-const ConnectorLeftToRight = () => (
-  <svg
-    className="absolute top-full left-[20%] w-[60%] h-24 hidden md:block z-0 pointer-events-none text-orange-500/50 dark:text-orange-500/40"
-    viewBox="0 0 400 100"
-    fill="none"
-    preserveAspectRatio="none"
-  >
-    <path
-      d="M 0 0 Q 0 50 200 50 Q 400 50 400 100"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeDasharray="8 8"
-      fill="none"
-    />
-  </svg>
-);
-
-const ConnectorRightToLeft = () => (
-  <svg
-    className="absolute top-full left-[20%] w-[60%] h-24 hidden md:block z-0 pointer-events-none text-orange-500/50 dark:text-orange-500/40"
-    viewBox="0 0 400 100"
-    fill="none"
-    preserveAspectRatio="none"
-  >
-    <path
-      d="M 400 0 Q 400 50 200 50 Q 0 50 0 100"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeDasharray="8 8"
-      fill="none"
-    />
-  </svg>
-);
-
 export const Process = () => {
-  return (
-    <section className="py-24 px-4 bg-zinc-50 dark:bg-black overflow-hidden relative transition-colors duration-300">
-      {/* Background Ambient Glow */}
-      <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-orange-200/20 via-zinc-50 to-zinc-50 dark:from-orange-900/20 dark:via-black dark:to-black -z-10" />
+  const containerRef = useRef<HTMLDivElement>(null);
+  
+  // Track scroll progress for the whole section
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start 20%", "end 50%"],
+  });
 
-      <div className="max-w-7xl mx-auto">
-        {/* Section Header */}
-        <div className="text-center mb-20">
-          <h2 className="text-3xl md:text-5xl font-bold text-zinc-900 dark:text-white mb-6 transition-colors">
-            Our Complete <span className="text-zinc-400">Process</span>
-          </h2>
-          <p className="text-zinc-600 dark:text-zinc-400 text-lg max-w-2xl mx-auto transition-colors">
-            From the first audit to the final sale, our workflow is designed for
-            speed and precision.
-          </p>
+  // Smooth out the line filling animation
+  const scaleY = useSpring(scrollYProgress, {
+    stiffness: 100,
+    damping: 30,
+    restDelta: 0.001
+  });
+
+  return (
+    <section className="py-24 px-4 bg-zinc-50 dark:bg-zinc-950 overflow-hidden relative">
+      <div ref={containerRef} className="max-w-6xl mx-auto">
+        
+        {/* Header Section */}
+        <div className="text-center mb-24">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          >
+            <h2 className="text-4xl md:text-5xl font-bold text-zinc-900 dark:text-white mb-6">
+              Our <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-orange-500">Process</span>
+            </h2>
+            <p className="text-zinc-500 max-w-2xl mx-auto text-lg">
+              From audit to automation, we handle the complexities of digital growth so you don't have to.
+            </p>
+          </motion.div>
         </div>
 
-        <div className="flex flex-col gap-20 md:gap-28 relative">
-          {steps.map((step, index) => {
-            const isEven = index % 2 !== 0; // Steps 2, 4
-            const Icon = step.icon;
+        <div className="relative">
+          {/* BACKGROUND LINE (Static Grey) */}
+          <div className="absolute left-4 md:left-1/2 top-0 bottom-0 w-[2px] bg-zinc-200 dark:bg-zinc-800 -translate-x-1/2" />
 
-            return (
-              <div key={index} className="relative">
-                <div
-                  className={`flex flex-col md:flex-row items-center gap-12 md:gap-0 ${
-                    isEven ? "md:flex-row-reverse" : ""
-                  }`}
-                >
-                  {/* COLUMN 1: The Card */}
-                  <motion.div
-                    initial={{ opacity: 0, x: isEven ? 50 : -50 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true, margin: "-100px" }}
-                    transition={{ duration: 0.6 }}
-                    className="w-full md:w-1/2 flex justify-center relative z-10"
-                  >
-                    <div className="bg-gradient-to-br from-orange-500 to-orange-600 dark:from-orange-600 dark:to-orange-800 text-white p-8 md:p-10 rounded-[2rem] max-w-md w-full shadow-2xl shadow-orange-500/20 dark:shadow-none hover:scale-105 transition-transform duration-300 border border-orange-400/20">
-                      <div className="w-14 h-14 bg-white text-orange-600 rounded-xl flex items-center justify-center mb-6 shadow-lg">
-                        <Icon size={28} />
-                      </div>
+          {/* ANIMATED LINE (Gradient Fill) */}
+          <motion.div
+            style={{ scaleY, transformOrigin: "top" }}
+            className="absolute left-4 md:left-1/2 top-0 bottom-0 w-[2px] bg-gradient-to-b from-blue-600 via-blue-400 to-orange-500 -translate-x-1/2 z-10"
+          />
 
-                      <h3 className="text-2xl font-bold mb-3">{step.title}</h3>
-                      <p className="text-orange-50 leading-relaxed font-medium text-sm md:text-base">
-                        {step.desc}
-                      </p>
-                    </div>
-                  </motion.div>
-
-                  {/* COLUMN 2: The Massive Text */}
-                  <motion.div
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.6, delay: 0.2 }}
-                    className="w-full md:w-1/2 text-center md:text-left relative"
-                  >
-                    <h2
-                      className={`text-[5rem] md:text-[8rem] font-black leading-none tracking-tighter ${
-                        isEven ? "md:text-left" : "md:text-right"
-                      }`}
-                    >
-                      {/* FIX 1: "STEP" Text Gradient */}
-                      {/* Light Mode: Dark Gray | Dark Mode: White fade */}
-                      <span className="text-transparent bg-clip-text bg-gradient-to-b from-zinc-400 to-zinc-600 dark:from-white dark:to-zinc-700 block transition-all">
-                        STEP
-                      </span>
-
-                      {/* FIX 2: "Number" Text Gradient */}
-                      {/* Light Mode: Visible Gray | Dark Mode: Faded Gray */}
-                      <span className="text-transparent bg-clip-text bg-gradient-to-b from-zinc-300 to-zinc-200 dark:from-zinc-700 dark:to-zinc-900 block transition-all">
-                        {step.id}
-                      </span>
-                    </h2>
-                  </motion.div>
-                </div>
-
-                {/* Connecting Lines */}
-                {index !== steps.length - 1 &&
-                  (isEven ? (
-                    <ConnectorRightToLeft />
-                  ) : (
-                    <ConnectorLeftToRight />
-                  ))}
-              </div>
-            );
-          })}
+          {/* Steps Container */}
+          <div className="flex flex-col gap-24 md:gap-32">
+            {steps.map((step, index) => (
+              <StepCard key={step.id} step={step} index={index} />
+            ))}
+          </div>
         </div>
       </div>
     </section>
+  );
+};
+
+const StepCard = ({ step, index }: { step: any; index: number }) => {
+  const isEven = index % 2 === 0;
+
+  return (
+    <motion.div
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, margin: "-20%" }} // Triggers when 20% of element is in view
+      className={`relative flex flex-col md:flex-row items-center gap-8 md:gap-16 ${
+        isEven ? "md:flex-row-reverse" : ""
+      }`}
+    >
+      {/* 1. IMAGE COLUMN */}
+      <motion.div
+        variants={{
+          hidden: { opacity: 0, x: isEven ? 50 : -50, scale: 0.9 },
+          visible: { 
+            opacity: 1, 
+            x: 0, 
+            scale: 1,
+            transition: { duration: 0.8, ease: "easeOut" } 
+          },
+        }}
+        className="w-full md:w-1/2 pl-12 md:px-0 relative group"
+      >
+        {/* Decorative Blur behind image */}
+        <div className={`absolute -inset-4 rounded-xl opacity-20 blur-2xl transition-all duration-500 group-hover:opacity-40 ${step.color}`} />
+        
+        <div className={`relative overflow-hidden rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 shadow-2xl ${step.shadow}`}>
+          <motion.img
+            whileHover={{ scale: 1.05 }}
+            transition={{ duration: 0.6 }}
+            src={step.img}
+            alt={step.title}
+            className="w-full h-64 md:h-80 object-cover"
+          />
+          {/* Glass Badge */}
+          <div className="absolute bottom-4 left-4 right-4 bg-white/90 dark:bg-black/80 backdrop-blur-md p-3 rounded-lg border border-zinc-200 dark:border-zinc-700 flex justify-between items-center shadow-sm">
+            <span className="text-xs font-bold text-zinc-500 uppercase tracking-wider">Status</span>
+            <span className={`text-xs font-bold ${step.text} flex items-center gap-1`}>
+              In Progress <div className={`w-1.5 h-1.5 rounded-full ${step.color} animate-pulse`} />
+            </span>
+          </div>
+        </div>
+      </motion.div>
+
+      {/* 2. CENTER DOT */}
+      <div className="absolute left-4 md:left-1/2 -translate-x-1/2 top-0 md:top-1/2 md:-translate-y-1/2 z-20 flex items-center justify-center">
+        <motion.div
+          variants={{
+            hidden: { scale: 0 },
+            visible: { scale: 1, transition: { delay: 0.2, type: "spring", stiffness: 200 } }
+          }}
+          className={`w-8 h-8 rounded-full border-4 border-white dark:border-zinc-950 shadow-lg ${step.color} flex items-center justify-center`}
+        >
+          <div className="w-2 h-2 bg-white rounded-full" />
+        </motion.div>
+      </div>
+
+      {/* 3. TEXT COLUMN */}
+      <motion.div
+        variants={{
+          hidden: { opacity: 0, x: isEven ? -30 : 30 },
+          visible: { 
+            opacity: 1, 
+            x: 0,
+            transition: { duration: 0.6, staggerChildren: 0.1, delayChildren: 0.2 }
+          },
+        }}
+        className={`w-full md:w-1/2 pl-12 md:px-0 ${!isEven ? "md:text-right" : "md:text-left"}`}
+      >
+        {/* Icon */}
+        <motion.div 
+            variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
+            className={`inline-flex items-center justify-center w-14 h-14 rounded-2xl mb-6 shadow-lg ${step.color} text-white ${!isEven && "md:ml-auto"}`}
+        >
+          <step.icon size={28} />
+        </motion.div>
+
+        {/* Title */}
+        <motion.h3 
+            variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
+            className="text-3xl font-bold text-zinc-900 dark:text-white mb-4"
+        >
+          {step.title}
+        </motion.h3>
+
+        {/* Description */}
+        <motion.p 
+            variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
+            className="text-lg text-zinc-600 dark:text-zinc-400 leading-relaxed mb-6"
+        >
+          {step.desc}
+        </motion.p>
+
+        {/* List Points */}
+        <motion.div 
+            variants={{ hidden: { opacity: 0 }, visible: { opacity: 1 } }}
+            className={`flex flex-col gap-2 ${!isEven ? "md:items-end" : "md:items-start"}`}
+        >
+          <div className="flex items-center gap-2 text-sm font-semibold text-zinc-700 dark:text-zinc-300 bg-zinc-100 dark:bg-zinc-900 px-3 py-1 rounded-full w-fit">
+            <CheckCircle2 size={14} className={step.text} />
+            <span>Certified Method</span>
+          </div>
+        </motion.div>
+
+      </motion.div>
+    </motion.div>
   );
 };

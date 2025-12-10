@@ -11,7 +11,6 @@ const CuteRobot = () => {
   
   useFrame((state) => {
     if (headRef.current) {
-      const t = state.clock.getElapsedTime();
       const mouseX = state.mouse.x;
       const mouseY = state.mouse.y;
 
@@ -28,8 +27,8 @@ const CuteRobot = () => {
   });
 
   return (
-    // CHANGED: Position moved from [0, -0.5, 0] to [0, 0, 0] to lift the robot up
-    <group position={[0, 0, 0]}>
+    // ADJUSTED: Moved Y down slightly (-0.2) to center it better when zoomed in
+    <group position={[0, -0.2, 0]}>
       <Float speed={2} rotationIntensity={0.2} floatIntensity={0.5} floatingRange={[0, 0.2]}>
         
         {/* --- HEAD GROUP --- */}
@@ -96,8 +95,9 @@ export const Robot3D = () => {
   return (
     <div className="w-full h-full relative cursor-none pointer-events-none">
       <Canvas shadows dpr={[1, 1.5]} performance={{ min: 0.5 }}>
-        {/* CHANGED: Position Z changed from 5 to 6.5 to Zoom Out (Make smaller) */}
-        <PerspectiveCamera makeDefault position={[0, 0, 6.5]} fov={45} />
+        {/* CHANGED: Position Z changed from 6.5 to 5.2 to Zoom In (Make bigger) */}
+        <PerspectiveCamera makeDefault position={[0, 0, 4.2]} fov={45} />
+        
         <ambientLight intensity={0.7} />
         <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} intensity={1} castShadow />
         <pointLight position={[-10, -10, -10]} intensity={0.5} color="#f97316" />
