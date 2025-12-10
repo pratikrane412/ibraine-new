@@ -1,10 +1,10 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, ChevronDown, ArrowRight } from "lucide-react"; // Added ChevronDown, ArrowRight
+import { Menu, X, ChevronDown, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/Button";
+import Link from "next/link"; // 1. Import Link from Next.js
 
-// Define the sub-menu items
 const serviceLinks = [
   { name: "SEO Optimization", href: "#seo" },
   { name: "Performance Marketing", href: "#performance" },
@@ -20,10 +20,7 @@ const serviceLinks = [
 export const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
-
-  // State for Desktop Hover
   const [isServicesHovered, setIsServicesHovered] = useState(false);
-  // State for Mobile Accordion
   const [isMobileServicesOpen, setIsMobileServicesOpen] = useState(false);
 
   useEffect(() => {
@@ -43,20 +40,25 @@ export const Navbar = () => {
       }`}
     >
       <div className="w-full max-w-[1440px] mx-auto px-6 md:px-12 flex items-center justify-between">
-        {/* LEFT: Logo Image */}
+        
+        {/* LEFT: Logo Image (NOW CLICKABLE) */}
         <div className="flex items-center">
-          <img
-            src="/logo.webp"
-            alt="iBraine Logo"
-            className="h-12 w-auto object-contain"
-          />
+          {/* 2. Wrapped in Link to Home */}
+          <Link href="/" className="cursor-pointer"> 
+            <img
+              src="/logo.webp"
+              alt="iBraine Logo"
+              className="h-12 w-auto object-contain"
+            />
+          </Link>
         </div>
 
         {/* RIGHT: Grouped Content */}
         <div className="flex items-center gap-8">
+          
           {/* --- DESKTOP LINKS --- */}
           <div className="hidden md:flex items-center gap-8 text-sm font-medium text-zinc-600 dark:text-zinc-400">
-            {/* 1. Services Dropdown Link */}
+            {/* Services Dropdown */}
             <div
               className="relative h-full py-2"
               onMouseEnter={() => setIsServicesHovered(true)}
@@ -72,7 +74,6 @@ export const Navbar = () => {
                 />
               </button>
 
-              {/* The Dropdown Card */}
               <AnimatePresence>
                 {isServicesHovered && (
                   <motion.div
@@ -80,7 +81,7 @@ export const Navbar = () => {
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: 10 }}
                     transition={{ duration: 0.2 }}
-                    className="absolute top-full -left-4 pt-4 w-64" // pt-4 creates a safe hover gap
+                    className="absolute top-full -left-4 pt-4 w-64"
                   >
                     <div className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-xl p-2 overflow-hidden">
                       <div className="flex flex-col">
@@ -91,7 +92,6 @@ export const Navbar = () => {
                             className="px-4 py-3 text-sm text-zinc-600 dark:text-zinc-300 hover:bg-zinc-50 dark:hover:bg-zinc-800 hover:text-orange-500 dark:hover:text-orange-500 rounded-lg transition-colors flex items-center justify-between group"
                           >
                             {subItem.name}
-                            {/* Tiny arrow appears on hover */}
                             <ArrowRight
                               size={12}
                               className="opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all"
@@ -105,22 +105,21 @@ export const Navbar = () => {
               </AnimatePresence>
             </div>
 
-            {/* 2. Other Standard Links */}
+            {/* Other Links */}
             {["Work", "About", "Contact"].map((item) => (
-              <a
+              <Link
                 key={item}
-                href={`#${item.toLowerCase()}`}
+                href={item === "Work" ? "/#work" : `/${item.toLowerCase()}`} // Smart linking
                 className="hover:text-orange-500 dark:hover:text-white transition-colors"
               >
                 {item}
-              </a>
+              </Link>
             ))}
           </div>
 
-          {/* Actions: Theme Toggle + CTA */}
+          {/* Actions */}
           <div className="hidden md:flex items-center gap-4">
             <div className="w-px h-6 bg-zinc-300 dark:bg-white/10 mx-2"></div>
-
             <Button
               variant="primary"
               className="!py-2.5 !px-6 text-sm h-10 shadow-lg shadow-orange-500/20"
@@ -141,7 +140,7 @@ export const Navbar = () => {
         </div>
       </div>
 
-      {/* --- MOBILE MENU DROPDOWN --- */}
+      {/* --- MOBILE MENU --- */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
@@ -151,7 +150,6 @@ export const Navbar = () => {
             className="bg-white dark:bg-zinc-950 border-t border-zinc-200 dark:border-white/10 overflow-hidden md:hidden shadow-2xl"
           >
             <div className="p-6 flex flex-col gap-4">
-              {/* Mobile Services Accordion */}
               <div>
                 <button
                   onClick={() => setIsMobileServicesOpen(!isMobileServicesOpen)}
@@ -179,7 +177,7 @@ export const Navbar = () => {
                           <a
                             key={subItem.name}
                             href={subItem.href}
-                            onClick={() => setIsOpen(false)} // Close menu on click
+                            onClick={() => setIsOpen(false)}
                             className="text-base text-zinc-500 dark:text-zinc-400 hover:text-orange-500"
                           >
                             {subItem.name}
@@ -191,16 +189,15 @@ export const Navbar = () => {
                 </AnimatePresence>
               </div>
 
-              {/* Standard Mobile Links */}
               {["Work", "About", "Contact"].map((item) => (
-                <a
+                <Link
                   key={item}
-                  href={`#${item.toLowerCase()}`}
+                  href={item === "Work" ? "/#work" : `/${item.toLowerCase()}`}
                   className="text-xl font-medium text-zinc-900 dark:text-white py-2"
                   onClick={() => setIsOpen(false)}
                 >
                   {item}
-                </a>
+                </Link>
               ))}
 
               <Button className="w-full justify-center mt-4">

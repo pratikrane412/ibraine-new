@@ -9,15 +9,14 @@ export const Cursor = () => {
   const cursorX = useMotionValue(-100);
   const cursorY = useMotionValue(-100);
 
-  // 2. SLOW & SMOOTH CONFIGURATION
-  // Reduced stiffness (from 300 to 50) makes it move slower
-  // Adjusted damping prevents it from wobbling too much
+  // 2. SMOOTH SPRING CONFIG (Faster & Fluid)
   const springConfig = { 
-    damping: 20, 
-    stiffness: 50, 
-    mass: 1 
+    damping: 15, 
+    stiffness: 150, 
+    mass: 0.5 
   };
   
+  // Only the Outer Ring uses the spring (lag effect)
   const cursorXSpring = useSpring(cursorX, springConfig);
   const cursorYSpring = useSpring(cursorY, springConfig);
 
@@ -40,9 +39,7 @@ export const Cursor = () => {
   return (
     <div className={`fixed inset-0 z-[9999] pointer-events-none transition-opacity duration-300 ${isVisible ? "opacity-100" : "opacity-0"}`}>
       
-      {/* 
-         OUTER RING (Slow Follower) 
-      */}
+      {/* OUTER RING (Smooth Follower) */}
       <motion.div
         style={{
           translateX: cursorXSpring,
@@ -53,12 +50,10 @@ export const Cursor = () => {
         className="fixed w-12 h-12 border border-zinc-500 dark:border-white/50 rounded-full pointer-events-none"
       />
 
-      {/* 
-         INNER DOT (Instant Movement) 
-      */}
+      {/* INNER DOT (Instant Movement - No lag) */}
       <motion.div
         style={{
-          translateX: cursorX,
+          translateX: cursorX, // Direct tracking for precision
           translateY: cursorY,
           left: -4, 
           top: -4, 
