@@ -5,7 +5,6 @@ import { TrendingUp } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import Image from 'next/image';
 
-// The words to cycle through
 const words = [
   "Search Engine Optimization.",
   "Performance Marketing.",
@@ -26,7 +25,6 @@ export const Hero = () => {
   const y = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
   const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
 
-  // --- TYPEWRITER LOGIC START ---
   const [text, setText] = useState("");
   const [isDeleting, setIsDeleting] = useState(false);
   const [loopNum, setLoopNum] = useState(0);
@@ -43,15 +41,11 @@ export const Hero = () => {
           : fullText.substring(0, text.length + 1)
       );
 
-      // Typing Speed
       setTypingSpeed(isDeleting ? 30 : 150);
 
-      // If word is finished typing
       if (!isDeleting && text === fullText) {
-        setTimeout(() => setIsDeleting(true), 1500); // Pause at end
-      }
-      // If word is finished deleting
-      else if (isDeleting && text === "") {
+        setTimeout(() => setIsDeleting(true), 1500);
+      } else if (isDeleting && text === "") {
         setIsDeleting(false);
         setLoopNum(loopNum + 1);
       }
@@ -60,18 +54,13 @@ export const Hero = () => {
     const timer = setTimeout(handleType, typingSpeed);
     return () => clearTimeout(timer);
   }, [text, isDeleting, loopNum, typingSpeed]);
-  // --- TYPEWRITER LOGIC END ---
 
   return (
     <section
       ref={targetRef}
       className="relative min-h-[110vh] flex flex-col items-center pt-32 px-4 overflow-hidden bg-zinc-950"
     >
-      {/* 
-        =============================================
-        1. VIDEO BACKGROUND (Updated for Light Mode)
-        =============================================
-      */}
+      {/* 1. VIDEO BACKGROUND */}
       <div className="absolute inset-0 z-0">
         <video
           autoPlay
@@ -81,23 +70,13 @@ export const Hero = () => {
           className="w-full h-full object-cover"
           poster="https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2072&auto=format&fit=crop"
         >
-          {/* 
-             NEW VIDEO: Clean Abstract Network Lines (Light/Tech feel) 
-             This looks clearer in Light Mode than the previous dark galaxy one.
-          */}
           <source
-            src="https://videos.pexels.com/video-files/3129671/3129671-uhd_2560_1440_30fps.mp4"
+            src="https://videos.pexels.com/video-files/3129957/3129957-uhd_2560_1440_25fps.mp4"
             type="video/mp4"
           />
         </video>
-        
-        {/* 
-           Overlay:
-           - bg-white/90 (Light Mode): Makes video very faint so black text pops.
-           - dark:bg-black/80 (Dark Mode): Dims video so white text pops.
-        */}
-        <div className="absolute inset-0 bg-white/80 dark:bg-black/80" />
-        <div className="absolute inset-0 bg-gradient-to-t from-white via-transparent to-transparent dark:from-[#050505] dark:via-transparent dark:to-transparent" />
+        <div className="absolute inset-0 bg-white/80 dark:bg-black/60" />
+        <div className="absolute inset-0 bg-gradient-to-t from-white/90 via-transparent to-transparent dark:from-[#050505] dark:via-transparent dark:to-transparent" />
       </div>
 
       {/* 2. CONTENT */}
@@ -116,16 +95,25 @@ export const Hero = () => {
             <span className="relative inline-flex rounded-full h-2 w-2 bg-orange-500"></span>
           </span>
           <span className="text-sm font-semibold text-zinc-800 dark:text-zinc-300">
-            Accepting New Clients for Q4
+            Accepting New Clients for 2026
           </span>
         </motion.div>
 
-        {/* HEADLINE WITH TYPEWRITER */}
+        {/* HEADLINE */}
         <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tighter mb-8 text-zinc-900 dark:text-white leading-[1.1] min-h-[3em] md:min-h-[2.5em]">
-          Explore Our iBraine To <br className="hidden md:block" />
-          See The Future Of <br />
+          Explore {" "}
           {/* 
-             COLOR GRADIENT: Orange (#FF6B00) to Blue (#2B7ABC)
+             1. STATIC TEXT: i (Orange), Braine (Blue)
+          */}
+          <span className="inline-block font-black">
+            <span style={{ color: "#FF6B00" }}>i</span>
+            <span style={{ color: "#2B7ABC" }}>Braine</span>
+          </span>{" "}
+          To <br className="hidden md:block" />
+          See The Future Of <br />
+          
+          {/* 
+             2. TYPEWRITER TEXT: Gradient from Orange to Blue
           */}
           <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#FF6B00] to-[#2B7ABC] animate-gradient">
             {text}
@@ -166,8 +154,6 @@ export const Hero = () => {
             <div className="w-3 h-3 rounded-full bg-green-400" />
             <div className="ml-4 w-64 h-6 bg-zinc-200 dark:bg-zinc-700 rounded-md opacity-50"></div>
           </div>
-          
-          {/* Dashboard Image */}
           <Image
             src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2426&auto=format&fit=crop"
             className="w-full h-full object-cover opacity-90 dark:opacity-80"
@@ -176,7 +162,6 @@ export const Hero = () => {
             height={800}
             priority
           />
-          
           <div className="absolute inset-0 bg-gradient-to-t from-white dark:from-[#050505] via-transparent to-transparent" />
         </motion.div>
 
