@@ -24,7 +24,7 @@ export default function Home() {
       <TrustGrid />
       <AboutPreview />
       <Services />
-      <Portfolio />
+       {/* Portfolio  */}
       <TechStack />
       <Stats />
       <Process />

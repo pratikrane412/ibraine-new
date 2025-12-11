@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, ChevronDown, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/Button";
-import Link from "next/link"; // 1. Import Link from Next.js
+import Link from "next/link";
 
 const serviceLinks = [
   { name: "SEO Optimization", href: "#seo" },
@@ -109,7 +109,7 @@ export const Navbar = () => {
             {["Work", "About", "Contact"].map((item) => (
               <Link
                 key={item}
-                href={item === "Work" ? "/#work" : `/${item.toLowerCase()}`} // Smart linking
+                href={item === "Work" ? "/work" : `/${item.toLowerCase()}`} // Smart linking
                 className="hover:text-orange-500 dark:hover:text-white transition-colors"
               >
                 {item}
