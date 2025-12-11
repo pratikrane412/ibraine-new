@@ -1,210 +1,212 @@
 "use client";
 import React, { useRef } from "react";
-import { 
-  motion, 
-  useScroll, 
-  useTransform, 
-  useSpring 
-} from "framer-motion";
-import { Navbar } from "@/components/layout/Navbar"; 
-import { Footer } from "@/components/layout/Footer"; 
+import { motion, useScroll, useTransform, useSpring } from "framer-motion";
+import { ArrowUpRight } from "lucide-react";
+import { Navbar } from "@/components/layout/Navbar";
+import { Footer } from "@/components/layout/Footer";
 
-// --- DATA ---
+// --- BRAND COLORS ---
+const BRAND_BLUE = "#2B7ABC";
+const BRAND_ORANGE = "#f97316";
+
+// --- PROJECT DATA ---
 const projects = [
   {
     id: 1,
     title: "Coca-Cola",
     category: "Branding",
+    year: "2023",
+    description: "Reimagining the digital presence of a global icon. We focused on visceral, thirst-inducing imagery combined with micro-interactions that mimic the fizz of a fresh soda.",
+    stats: ["+45% Engagement", "2M+ Impressions"],
     src: "https://images.unsplash.com/photo-1622483767028-3f66f32aef97?q=80&w=2660&auto=format&fit=crop",
-    speed: 0.1, 
-    align: "left", 
   },
   {
     id: 2,
     title: "Urban Fashion",
     category: "Ecommerce",
+    year: "2024",
+    description: "A high-performance storefront built for speed. We implemented headless architecture to ensure sub-second load times during peak fashion drops.",
+    stats: ["0.4s Load Time", "+120% Sales"],
     src: "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=80&w=2000&auto=format&fit=crop",
-    speed: 0.3, 
-    align: "right", 
   },
   {
     id: 3,
     title: "Tech Goggles",
     category: "Product Design",
+    year: "2023",
+    description: "Designing the interface for the next generation of AR eyewear. Our focus was on spatial UI that feels intuitive and organic, not robotic.",
+    stats: ["Red Dot Award", "50k Pre-orders"],
     src: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=2670&auto=format&fit=crop",
-    speed: 0.2, 
-    align: "left", 
   },
   {
     id: 4,
     title: "Modern Architecture",
     category: "Real Estate",
+    year: "2022",
+    description: "A luxury property showcase platform. We used WebGL to allow potential buyers to virtually tour penthouses in 3D directly from their browser.",
+    stats: ["300% ROI", "Sold Out in 2 Mo"],
     src: "https://images.unsplash.com/photo-1487958449943-2429e8be8625?q=80&w=2670&auto=format&fit=crop",
-    speed: 0.4, 
-    align: "right", 
   },
   {
     id: 5,
     title: "Neon Nights",
     category: "Photography",
+    year: "2023",
+    description: "A cyberpunk-inspired visual campaign for a nightlife brand. We used dynamic lighting effects and neon typography to capture the electric energy of the city.",
+    stats: ["Award Winner", "Viral Campaign"],
     src: "https://images.unsplash.com/photo-1555685812-4b943f1cb0eb?q=80&w=2000&auto=format&fit=crop",
-    speed: 0.2, 
-    align: "left", 
   },
   {
     id: 6,
     title: "Analog Sound",
     category: "Industrial Design",
+    year: "2021",
+    description: "Bringing tactile feel to a digital music platform. The UI mimics the physics of vinyl records and analog knobs for a nostalgic user experience.",
+    stats: ["Top 10 App", "User Choice"],
     src: "https://images.unsplash.com/photo-1461360228754-6e81c478b882?q=80&w=2000&auto=format&fit=crop",
-    speed: 0.3, 
-    align: "right", 
   },
 ];
 
-// --- MAIN PAGE COMPONENT ---
 export default function WorkPage() {
   const containerRef = useRef<HTMLDivElement>(null);
 
   return (
-    <div className="bg-zinc-50 dark:bg-black min-h-screen flex flex-col font-sans">
-      
-      {/* 1. NAVBAR */}
+    <div className="bg-white dark:bg-slate-950 min-h-screen flex flex-col font-sans selection:bg-[#2B7ABC] selection:text-white">
       <Navbar />
-
-      <main className="flex-grow w-full relative">
+      
+      <main ref={containerRef} className="flex-grow w-full relative pt-20">
         
-        {/* 2. STICKY BACKGROUND TYPOGRAPHY (Layer 0) */}
-        {/* This stays fixed while content scrolls over it */}
-        <div className="sticky top-0 h-screen w-full flex items-center justify-center pointer-events-none z-0 overflow-hidden">
-          <h1 className="text-[20vw] md:text-[25vw] font-black leading-none text-zinc-200 dark:text-zinc-800 opacity-90 select-none tracking-tighter">
-            WORK
-          </h1>
-          {/* Grid Texture Overlay */}
-          <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808008_1px,transparent_1px),linear-gradient(to_bottom,#80808008_1px,transparent_1px)] bg-[size:4rem_4rem]" />
-        </div>
-
-        {/* 3. SCROLLABLE CONTENT LAYER (Layer 10) */}
-        {/* -mt-[100vh] pulls this up to overlap the sticky container */}
-        <div ref={containerRef} className="relative z-10 -mt-[100vh] w-full max-w-7xl mx-auto px-4 md:px-8 pb-40">
-          
-          {/* Heading Section (Intro) */}
-          <motion.div 
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
-            className="h-[40vh] flex items-center justify-center md:justify-start pt-32"
-          >
-            <div className="md:ml-12 lg:ml-24">
-              <h2 className="text-4xl md:text-6xl font-bold text-zinc-900 dark:text-white tracking-tight">
-                Selected Works
-              </h2>
-              <p className="text-zinc-500 dark:text-zinc-400 mt-4 text-lg max-w-md">
-                A curated collection of branding, product design, and digital experiences that push boundaries.
+        {/* 1. HERO SECTION */}
+        <section className="relative h-[60vh] flex flex-col justify-end pb-20 border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 z-20">
+          <div className="w-full max-w-[1440px] mx-auto px-6 md:px-12">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, ease: "easeOut" }}
+            >
+              <p className="text-orange-500 font-mono tracking-widest uppercase text-sm mb-4 font-bold">
+                Our Portfolio
               </p>
-              <div className="h-1 w-20 bg-[#2B7ABC] mt-6" />
-            </div>
-          </motion.div>
+              <h1 className="text-6xl md:text-8xl font-black text-slate-900 dark:text-white tracking-tighter mb-6">
+                Selected <br/>
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#2B7ABC] to-[#1e6091]">
+                  Works.
+                </span>
+              </h1>
+            </motion.div>
+          </div>
+          <div className="absolute top-0 right-0 w-[40vw] h-[40vw] bg-[#2B7ABC]/5 rounded-full blur-[100px] pointer-events-none" />
+        </section>
 
-          {/* Animated Project List */}
-          {projects.map((project, i) => (
-            <ParallaxImage 
-              key={project.id} 
-              project={project} 
-              index={i} 
-            />
-          ))}
-        </div>
+        {/* 2. PROJECT LIST */}
+        <section className="relative w-full bg-slate-50 dark:bg-slate-900 py-32">
+          <div className="w-full max-w-[1440px] mx-auto px-6 md:px-12 flex flex-col gap-32">
+            {projects.map((project, i) => (
+              <ProjectCard 
+                key={project.id} 
+                project={project} 
+                index={i} 
+              />
+            ))}
+          </div>
+        </section>
 
       </main>
 
-      {/* 4. FOOTER (Relative, sits at bottom) */}
-      <div className="relative z-20 bg-zinc-50 dark:bg-black">
-        <Footer />
-      </div>
+      <Footer />
     </div>
   );
 }
 
-// --- PARALLAX IMAGE COMPONENT ---
-const ParallaxImage = ({ project, index }: { project: any, index: number }) => {
+// --- PROJECT CARD COMPONENT ---
+const ProjectCard = ({ project, index }: { project: any, index: number }) => {
   const ref = useRef(null);
   
-  // Track scroll for this item
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start end", "end start"],
   });
 
-  // --- SMOOTH PHYSICS ---
   const smoothProgress = useSpring(scrollYProgress, { 
     damping: 20, 
     stiffness: 100 
   });
 
-  // --- ANIMATION TRANSFORMS ---
-  // 1. ROTATION: Lying flat (80deg) -> Standing up (0deg)
-  const rotateX = useTransform(smoothProgress, [0, 0.4], [80, 0]);
-  
-  // 2. OPACITY: Fade in
+  // Animation Transforms
+  const rotateX = useTransform(smoothProgress, [0, 0.5], [85, 0]);
+  const scale = useTransform(smoothProgress, [0, 0.5], [0.85, 1]);
   const opacity = useTransform(smoothProgress, [0, 0.3], [0, 1]);
-  
-  // 3. SCALE: Grow slightly
-  const scale = useTransform(smoothProgress, [0, 0.4], [0.8, 1]);
 
-  // 4. PARALLAX Y: Move up faster than scroll
-  const y = useTransform(smoothProgress, [0, 1], [0, -100 * project.speed]);
-
-  // Alignment Logic
-  const getAlignClass = () => {
-    switch (project.align) {
-      case "left": return "md:mr-auto md:ml-0 lg:ml-12"; 
-      case "right": return "md:ml-auto md:mr-0 lg:mr-12";
-      default: return "mx-auto";
-    }
-  };
+  const isLeft = index % 2 === 0;
 
   return (
-    <motion.div 
-      ref={ref} 
-      // Responsive widths: 400px on small laptops, 600px on large screens
-      className={`relative w-full mb-32 md:mb-48 ${getAlignClass()} max-w-[90vw] md:max-w-[450px] xl:max-w-[600px]`}
-      style={{ maxWidth: "600px", y }} 
-    >
+    <div ref={ref} className={`flex flex-col lg:flex-row items-center gap-12 lg:gap-24 ${isLeft ? '' : 'lg:flex-row-reverse'}`}>
       
-      {/* 3D PERSPECTIVE CONTAINER */}
-      <div className="group relative aspect-[4/5] [perspective:1000px]">
-        
-        {/* INNER ANIMATED CARD */}
-        <motion.div
-          style={{ 
-            rotateX, 
-            opacity, 
-            scale,   
-          }}
-          className="w-full h-full relative origin-bottom rounded-xl overflow-hidden shadow-2xl bg-zinc-900"
+      {/* --- IMAGE SIDE --- */}
+      <div className="w-full lg:w-1/2 relative flex justify-center">
+        <div style={{ perspective: "1000px" }} className="w-full flex justify-center">
+          
+          <motion.div 
+            style={{ 
+              rotateX, 
+              scale, 
+              opacity,
+              transformOrigin: "bottom" 
+            }} 
+            // UPDATED CLASSES FOR VERTICAL SIZE:
+            // 1. max-w-[400px]: Limits width so it doesn't stretch too wide.
+            // 2. aspect-[3/4]: Forces strictly vertical portrait shape.
+            // 3. w-full: Allows it to scale down on mobile but never exceed 400px.
+            className="w-full max-w-[400px] aspect-[3/4] relative rounded-3xl overflow-hidden shadow-2xl bg-slate-900 group"
+          >
+             <img
+               src={project.src}
+               alt={project.title}
+               className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
+             />
+             <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-500" />
+          </motion.div>
+
+        </div>
+      </div>
+
+      {/* --- DESCRIPTION SIDE --- */}
+      <div className="w-full lg:w-1/2 relative">
+        <motion.div 
+          style={{ opacity }} 
+          className="flex flex-col justify-center h-full"
         >
-          <img
-            src={project.src}
-            alt={project.title}
-            className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
-          />
-          <div className="absolute inset-0 bg-black/0 transition-colors duration-500 group-hover:bg-black/10" />
+           <div className="flex items-center gap-4 mb-6 border-b border-slate-200 dark:border-slate-800 pb-4">
+              <span className="text-[#2B7ABC] font-mono text-sm">0{index + 1}</span>
+              <span className="text-slate-400 text-sm uppercase tracking-widest">{project.category}</span>
+              <span className="ml-auto text-slate-400 text-sm">{project.year}</span>
+           </div>
+
+           <h2 className="text-4xl md:text-6xl font-black text-slate-900 dark:text-white mb-6 leading-none hover:text-[#2B7ABC] transition-colors cursor-pointer">
+             {project.title}
+           </h2>
+
+           <p className="text-lg text-slate-600 dark:text-slate-400 leading-relaxed mb-8">
+             {project.description}
+           </p>
+
+           <div className="grid grid-cols-2 gap-6 mb-10">
+              {project.stats.map((stat: string, i: number) => (
+                 <div key={i}>
+                    <p className="text-xl font-bold text-slate-900 dark:text-white">{stat.split(" ")[0]}</p>
+                    <p className="text-xs text-slate-500 uppercase tracking-wider">{stat.split(" ").slice(1).join(" ")}</p>
+                 </div>
+              ))}
+           </div>
+
+           <button className="w-fit flex items-center gap-2 text-sm font-bold uppercase tracking-widest text-orange-500 hover:text-[#2B7ABC] transition-colors group">
+              View Case Study
+              <ArrowUpRight className="w-5 h-5 transition-transform group-hover:-translate-y-1 group-hover:translate-x-1" />
+           </button>
+
         </motion.div>
       </div>
 
-      {/* TEXT LABELS */}
-      <motion.div 
-        style={{ opacity }} 
-        className={`mt-6 flex flex-col ${project.align === 'right' ? 'items-end text-right' : 'items-start text-left'}`}
-      >
-         <h2 className="text-4xl md:text-5xl font-black text-zinc-900 dark:text-white tracking-tighter leading-none">
-            {project.title}
-         </h2>
-         <p className="text-sm md:text-md text-zinc-500 dark:text-zinc-400 font-bold uppercase tracking-widest mt-2">
-            {project.category}
-         </p>
-      </motion.div>
-    </motion.div>
+    </div>
   );
 };
