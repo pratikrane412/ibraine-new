@@ -2,14 +2,38 @@
 import React from "react";
 import { motion } from "framer-motion";
 
-// --- DATA: List of Badge Images ---
-// Increased base widths for larger rendering
+// --- DATA: List of Badge Images with Links ---
 const badges = [
-  { src: "/badges/google.png", alt: "Google Partner", width: 180 },
-  { src: "/badges/meta.png", alt: "Meta Business Partner", width: 200 },
-  { src: "/badges/2022.png", alt: "Powerful Men in Business 2022", width: 160 },
-  { src: "/badges/2019.png", alt: "Most Promising Digital Marketing Consultant 2019", width: 160 },
-  { src: "/badges/2018.png", alt: "Most Promising Digital Marketing Service Provider 2018", width: 160 },
+  { 
+    src: "/badges/google.png", 
+    alt: "Google Partner", 
+    width: 180, 
+    link: "https://www.google.com/partners" // <--- Add your link here
+  },
+  { 
+    src: "/badges/meta.png", 
+    alt: "Meta Business Partner", 
+    width: 200, 
+    link: "https://www.facebook.com/business/marketing-partners" // <--- Add your link here
+  },
+  { 
+    src: "/badges/2022.png", 
+    alt: "Powerful Men in Business 2022", 
+    width: 160, 
+    link: "https://ciolookindia.com/harsh-pareek-staunch-leadership-acumen/" // <--- Add your link here
+  },
+  { 
+    src: "/badges/2019.png", 
+    alt: "Most Promising Digital Marketing Consultant 2019", 
+    width: 160, 
+    link: "https://marketing.siliconindia.com/ranking/digital-marketing-consultants-2019-rid-587.html" // <--- Add your link here
+  },
+  { 
+    src: "/badges/2018.png", 
+    alt: "Most Promising Digital Marketing Service Provider 2018", 
+    width: 160, 
+    link: "https://technology.siliconindia.com/vendor/ibraine-implementing-effective-optimization-techniques-to-maximize-customers--marketing-potentials-cid-5574.html" // <--- Add your link here
+  },
 ];
 
 export const VerifiedBy = () => {
@@ -23,24 +47,24 @@ export const VerifiedBy = () => {
         </h3>
 
         {/* Badges Grid */}
-        {/* REMOVED: grayscale classes. REDUCED: gap classes. */}
-        <div className="flex flex-wrap justify-center items-center gap-6 md:gap-10">
+        <div className="flex flex-wrap justify-center items-center gap-4 md:gap-8">
           {badges.map((badge, index) => (
-            <motion.div 
+            <motion.a 
               key={index}
-              // Reduced hover scale slightly since they are closer together now
+              href={badge.link}
+              target="_blank"            // Opens in a new tab
+              rel="noopener noreferrer"  // Security best practice for new tabs
               whileHover={{ scale: 1.05 }}
-              className="flex items-center justify-center"
+              whileTap={{ scale: 0.95 }} // Adds a subtle click effect
+              className="flex items-center justify-center cursor-pointer"
             >
               <img 
                 src={badge.src} 
                 alt={badge.alt} 
-                // INCREASED: max-h classes to allow them to be bigger
                 className="object-contain max-h-32 md:max-h-40 w-auto mix-blend-multiply dark:mix-blend-normal" 
-                // INCREASED: dynamic max-width allows them to grow larger based on base width
                 style={{ width: "auto", height: "auto", maxWidth: badge.width + 60 }} 
               />
-            </motion.div>
+            </motion.a>
           ))}
         </div>
 
