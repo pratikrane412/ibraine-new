@@ -75,16 +75,13 @@ const MarqueeRow = ({
           className="w-52 h-32 bg-white border border-zinc-200 rounded-xl flex items-center justify-center p-3 shrink-0 shadow-sm hover:shadow-lg hover:border-orange-500/50 transition-all duration-300 group"
         >
           {/* 
-             UPDATED IMAGE STYLING:
-             - grayscale: Makes it black & white by default
-             - hover:grayscale-0: Returns color on hover
-             - opacity-70: Slightly faded for a cleaner look
-             - hover:opacity-100: Full visibility on hover
+             UPDATED: Removed 'grayscale' and 'opacity-70' 
+             Logos will now show in full color by default.
           */}
           <img
             src={logo.src}
             alt={logo.name}
-            className="w-full h-full object-contain transition-all duration-300 grayscale opacity-70 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-110"
+            className="w-full h-full object-contain transition-transform duration-300 group-hover:scale-110"
             onError={(e) => {
               e.currentTarget.src =
                 "https://placehold.co/200x100?text=" + logo.name;
