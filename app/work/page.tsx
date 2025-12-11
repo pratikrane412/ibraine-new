@@ -76,7 +76,7 @@ export default function WorkPage() {
         {/* 2. STICKY BACKGROUND TYPOGRAPHY (Layer 0) */}
         {/* This stays fixed while content scrolls over it */}
         <div className="sticky top-0 h-screen w-full flex items-center justify-center pointer-events-none z-0 overflow-hidden">
-          <h1 className="text-[20vw] md:text-[25vw] font-black leading-none text-zinc-200 dark:text-zinc-800 opacity-50 select-none tracking-tighter">
+          <h1 className="text-[20vw] md:text-[25vw] font-black leading-none text-zinc-200 dark:text-zinc-800 opacity-90 select-none tracking-tighter">
             WORK
           </h1>
           {/* Grid Texture Overlay */}
