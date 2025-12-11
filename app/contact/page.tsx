@@ -79,7 +79,7 @@ export default function ContactPage() {
 
                 {/* Row 2 */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <InputGroup label="Phone Number*" placeholder="+1 234 567 890" />
+                  <InputGroup label="Phone Number*" placeholder="+91 12345 6789" />
                   <InputGroup label="Subject*" placeholder="Project Inquiry" />
                 </div>
 
