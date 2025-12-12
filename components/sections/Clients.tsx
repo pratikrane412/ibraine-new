@@ -1,5 +1,10 @@
 import React from "react";
 
+// Matches the blue in "Braine"
+const BRAND_BLUE = "#2B7ABC"; 
+// Matches the orange dot/underline
+const BRAND_ORANGE = "#FF6B00"; 
+
 export const Clients = () => {
   const clients = [
     "MOTOEARTH",
@@ -12,15 +17,19 @@ export const Clients = () => {
   ];
 
   return (
-    <section className="py-10 border-y border-zinc-100 dark:border-white/5 bg-white dark:bg-white/[0.02] transition-colors duration-300">
+    <section 
+      className="py-10 border-y border-blue-500/20 transition-colors duration-300"
+      style={{ backgroundColor: BRAND_BLUE }} // Using inline style to ensure exact brand match
+    >
       <div className="overflow-hidden whitespace-nowrap">
         <div className="inline-flex animate-marquee gap-16 items-center">
-          {/* Duplicating the list to ensure seamless infinite scroll */}
           {[...clients, ...clients, ...clients, ...clients].map(
             (client, index) => (
               <span
                 key={index}
-                className="text-2xl md:text-4xl font-bold text-zinc-300 dark:text-white/20 uppercase tracking-widest hover:text-orange-500/50 dark:hover:text-orange-500/50 transition-colors cursor-default"
+                // Text is semi-transparent white, turning full white on hover
+                // Added a slight text shadow for depth
+                className="text-2xl md:text-4xl font-bold text-white/40 uppercase tracking-widest hover:text-white transition-colors cursor-default"
               >
                 {client}
               </span>
