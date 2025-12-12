@@ -1,9 +1,9 @@
+"use client";
 import React from "react";
+import { motion } from "framer-motion";
 
 // Matches the blue in "Braine"
 const BRAND_BLUE = "#2B7ABC"; 
-// Matches the orange dot/underline
-const BRAND_ORANGE = "#FF6B00"; 
 
 export const Clients = () => {
   const clients = [
@@ -18,24 +18,29 @@ export const Clients = () => {
 
   return (
     <section 
-      className="py-10 border-y border-blue-500/20 transition-colors duration-300"
-      style={{ backgroundColor: BRAND_BLUE }} // Using inline style to ensure exact brand match
+      className="py-6 border-y border-white/10 overflow-hidden relative z-20"
+      style={{ backgroundColor: BRAND_BLUE }} 
     >
-      <div className="overflow-hidden whitespace-nowrap">
-        <div className="inline-flex animate-marquee gap-16 items-center">
+      <div className="flex overflow-hidden whitespace-nowrap">
+        <motion.div 
+          initial={{ x: 0 }}
+          animate={{ x: "-50%" }}
+          transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
+          className="flex gap-16 items-center pr-16"
+        >
           {[...clients, ...clients, ...clients, ...clients].map(
             (client, index) => (
               <span
                 key={index}
-                // Text is semi-transparent white, turning full white on hover
-                // Added a slight text shadow for depth
-                className="text-2xl md:text-4xl font-bold text-white/40 uppercase tracking-widest hover:text-white transition-colors cursor-default"
+                // REMOVED: font-black
+                // ADDED: font-medium (Standard weight, clean look)
+                className="text-xl md:text-3xl font-medium text-white uppercase tracking-wider cursor-default select-none shrink-0"
               >
                 {client}
               </span>
             )
           )}
-        </div>
+        </motion.div>
       </div>
     </section>
   );
