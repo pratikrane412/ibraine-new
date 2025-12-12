@@ -7,9 +7,6 @@ import Image from "next/image";
 const BRAND_BLUE = "#2B7ABC";
 const BRAND_ORANGE = "#FF6B00";
 
-// ... (Data Arrays Remain the Same) ...
-// Ensure you have the `row1` and `row2` arrays here
-
 const row1 = [
   { name: "Next.js", icon: "/tech/Next.js.png" },
   { name: "React", icon: "/tech/React.png" },
@@ -23,28 +20,26 @@ const row1 = [
   { name: "Python", icon: "/tech/Python.png" },
   { name: "AWS", icon: "/tech/AWS.png" },
   { name: "MongoDB", icon: "/tech/MongoDB.png" },
+  { name: "Figma", icon: "/tech/Figma.png" },
+  { name: "WordPress", icon: "/tech/WordPress.png" },
+  { name: "Shopify", icon: "/tech/Shopify.png" },
 ];
 
 const row2 = [
-  { name: "Figma", icon: "/tech/Figma.png" },
   { name: "Canva", icon: "/tech/Canva.png" },
   { name: "Adobe Photoshop", icon: "/tech/Adobe Photoshop.png" },
   { name: "Adobe Illustrator", icon: "/tech/Adobe Illustrator.png" },
-  { name: "Shopify", icon: "/tech/Shopify.png" },
   { name: "Google Analytics", icon: "/tech/Google Analytics.png" },
   { name: "Meta", icon: "/tech/Meta.png" },
   { name: "Google Ads", icon: "/tech/Google Ads.png" },
-  { name: "WordPress", icon: "/tech/WordPress.png" },
+  { name: "Notion", icon: "/tech/Notion.png" },
+  { name: "After Effects", icon: "/tech/After Effects.png" },
 ];
 
 // --- Sub-Component: Tech Card ---
 const TechCard = ({ item }: { item: { name: string; icon: string } }) => (
   <div className="flex items-center gap-4 px-6 py-4 bg-zinc-100 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-2xl min-w-[200px] hover:border-orange-500/50 transition-colors group">
     <div className="w-10 h-10 relative flex items-center justify-center">
-      {/* 
-         FIX: Added width={40} and height={40} 
-         Since the parent div is w-10 h-10 (40px), these values match perfectly.
-      */}
       <Image
         src={item.icon}
         alt={item.name}
@@ -59,28 +54,34 @@ const TechCard = ({ item }: { item: { name: string; icon: string } }) => (
   </div>
 );
 
-// ... (Rest of the component remains the same)
-
 // --- Sub-Component: Marquee Row ---
 const MarqueeRow = ({
   items,
   direction = "left",
-  speed = 20,
+  speed = 40, // Increased default speed slightly for smoothness
 }: {
   items: typeof row1;
   direction?: "left" | "right";
   speed?: number;
 }) => {
   return (
-    <div className="flex overflow-hidden relative w-full">
+    <div className="flex overflow-hidden relative w-full select-none">
       <motion.div
-        initial={{ x: direction === "left" ? 0 : "-50%" }}
-        animate={{ x: direction === "left" ? "-50%" : 0 }}
-        transition={{ duration: speed, repeat: Infinity, ease: "linear" }}
-        className="flex gap-6 pr-6 shrink-0"
+        // LOGIC: We have 2 copies. The width is 100%.
+        // Left: Move from 0% to -50%. At -50%, the 2nd copy is exactly where the 1st started.
+        // Right: Move from -50% to 0%.
+        initial={{ x: direction === "left" ? "0%" : "-50%" }}
+        animate={{ x: direction === "left" ? "-50%" : "0%" }}
+        transition={{
+          duration: speed,
+          repeat: Infinity,
+          ease: "linear",
+        }}
+        className="flex gap-6 shrink-0"
         style={{ width: "max-content" }}
       >
-        {[...items, ...items, ...items].map((item, i) => (
+        {/* We duplicate the items exactly ONCE to create a perfect seamless loop */}
+        {[...items, ...items].map((item, i) => (
           <TechCard key={i} item={item} />
         ))}
       </motion.div>
@@ -101,11 +102,15 @@ export const TechStack = () => {
           high-performance digital solutions.
         </p>
       </div>
+
       <div className="flex flex-col gap-6 relative">
+        {/* Fade gradients on edges to soften entrance/exit */}
         <div className="absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-white dark:from-black to-transparent z-10 pointer-events-none" />
         <div className="absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-white dark:from-black to-transparent z-10 pointer-events-none" />
-        <MarqueeRow items={row1} direction="left" speed={35} />
-        <MarqueeRow items={row2} direction="right" speed={35} />
+
+        {/* Rows */}
+        <MarqueeRow items={row1} direction="left" speed={60} />
+        <MarqueeRow items={row2} direction="right" speed={60} />
       </div>
     </section>
   );

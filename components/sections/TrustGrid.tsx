@@ -58,26 +58,27 @@ const row3 = [
 const MarqueeRow = ({
   items,
   speed = 40,
+  direction = "right", // Default set to right
 }: {
   items: any[];
   speed?: number;
+  direction?: "left" | "right";
 }) => (
-  <div className="flex overflow-hidden relative w-full">
+  <div className="flex overflow-hidden relative w-full select-none">
     <motion.div
-      initial={{ x: "-100%" }} // Start from Left
-      animate={{ x: "0%" }} // Move to Right
+      // INFINITE SCROLL LOGIC:
+      // Right Direction: Start at -50% and move to 0%
+      initial={{ x: direction === "left" ? "0%" : "-50%" }}
+      animate={{ x: direction === "left" ? "-50%" : "0%" }}
       transition={{ duration: speed, repeat: Infinity, ease: "linear" }}
-      className="flex gap-6 pr-6 min-w-full"
+      className="flex gap-6 pr-6 shrink-0"
+      style={{ width: "max-content" }}
     >
       {[...items, ...items].map((logo, i) => (
         <div
           key={i}
           className="w-52 h-32 bg-white border border-zinc-200 rounded-xl flex items-center justify-center p-3 shrink-0 shadow-sm hover:shadow-lg hover:border-orange-500/50 transition-all duration-300 group"
         >
-          {/* 
-             UPDATED: Removed 'grayscale' and 'opacity-70' 
-             Logos will now show in full color by default.
-          */}
           <img
             src={logo.src}
             alt={logo.name}
@@ -114,14 +115,10 @@ export const TrustGrid = () => {
           <div className="absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-zinc-50 dark:from-zinc-950 to-transparent z-10 pointer-events-none" />
           <div className="absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-zinc-50 dark:from-zinc-950 to-transparent z-10 pointer-events-none" />
 
-          {/* Row 1 - Speed 40s */}
-          <MarqueeRow items={row1} speed={40} />
-
-          {/* Row 2 - Speed 50s */}
-          <MarqueeRow items={row2} speed={50} />
-
-          {/* Row 3 - Speed 45s */}
-          <MarqueeRow items={row3} speed={45} />
+          {/* All Rows set to 'right' */}
+          <MarqueeRow items={row1} speed={70} direction="right" />
+          <MarqueeRow items={row2} speed={70} direction="right" />
+          <MarqueeRow items={row3} speed={70} direction="right" />
         </div>
       </div>
     </section>
