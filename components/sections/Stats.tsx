@@ -54,10 +54,10 @@ const Counter = ({ value }: { value: string }) => {
 
 export const Stats = () => {
   const stats = [
-    { label: "Active Clients", value: "1200+" },
-    { label: "Websites Delivered", value: "200+" },
-    { label: "Retention Rate", value: "98%" },
     { label: "Years Experience", value: "16+" },
+    { label: "Websites Delivered", value: "200+" },
+    { label: "Active Clients", value: "1200+" },
+    { label: "Retenntion Rate", value: "98%" },
   ];
 
   return (
