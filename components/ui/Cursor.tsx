@@ -1,24 +1,40 @@
 "use client";
-import React, { useEffect, useState } from 'react';
-import { motion, useMotionValue, useSpring } from 'framer-motion';
+import React, { useEffect, useState } from "react";
+import { motion, useMotionValue, useSpring } from "framer-motion";
 
 export const Cursor = () => {
   const [isVisible, setIsVisible] = useState(false);
 
-  // 1. Track Mouse Position
+  // 1. Track Raw Mouse Position
   const cursorX = useMotionValue(-100);
   const cursorY = useMotionValue(-100);
 
-  // 2. SMOOTH SPRING CONFIG (Faster & Fluid)
-  const springConfig = { 
-    damping: 15, 
-    stiffness: 150, 
-    mass: 0.5 
-  };
+  // 2. PHYSICS CONFIGURATION (Cinematic/Heavy Feel)
   
-  // Only the Outer Ring uses the spring (lag effect)
-  const cursorXSpring = useSpring(cursorX, springConfig);
-  const cursorYSpring = useSpring(cursorY, springConfig);
+  // OUTER RING (The Leader - "First")
+  // stiffness: 150 (Reduced from 500) -> Makes it float to the mouse, not snap.
+  // damping: 20 -> Adds a "weighty" slide when stopping.
+  const springConfigRing = {
+    stiffness: 150, 
+    damping: 20,    
+    mass: 0.5,
+  };
+
+  // INNER DOT (The Follower - "Second")
+  // stiffness: 80 -> Very slow, lags behind the ring significantly.
+  // mass: 1 -> Feels heavy.
+  const springConfigDot = {
+    stiffness: 80, 
+    damping: 20,   
+    mass: 1,      
+  };
+
+  // Apply springs
+  const ringX = useSpring(cursorX, springConfigRing);
+  const ringY = useSpring(cursorY, springConfigRing);
+  
+  const dotX = useSpring(cursorX, springConfigDot);
+  const dotY = useSpring(cursorY, springConfigDot);
 
   useEffect(() => {
     const moveCursor = (e: MouseEvent) => {
@@ -31,34 +47,33 @@ export const Cursor = () => {
     return () => window.removeEventListener("mousemove", moveCursor);
   }, [cursorX, cursorY, isVisible]);
 
-  // Hide on mobile devices
   if (typeof window !== "undefined" && window.matchMedia("(pointer: coarse)").matches) {
     return null;
   }
 
   return (
-    <div className={`fixed inset-0 z-[9999] pointer-events-none transition-opacity duration-300 ${isVisible ? "opacity-100" : "opacity-0"}`}>
-      
-      {/* OUTER RING (Smooth Follower) */}
+    <div
+      className={`fixed top-0 left-0 z-[9999] pointer-events-none transition-opacity duration-500 ${
+        isVisible ? "opacity-100" : "opacity-0"
+      }`}
+      style={{ mixBlendMode: "difference" }}
+    >
+      {/* OUTER RING (First - The Leader) */}
       <motion.div
         style={{
-          translateX: cursorXSpring,
-          translateY: cursorYSpring,
-          left: -24, 
-          top: -24,
+          translateX: ringX,
+          translateY: ringY,
         }}
-        className="fixed w-12 h-12 border border-zinc-500 dark:border-white/50 rounded-full pointer-events-none"
+        className="absolute -left-5 -top-5 w-10 h-10 rounded-full border border-white will-change-transform"
       />
 
-      {/* INNER DOT (Instant Movement - No lag) */}
+      {/* INNER DOT (Second - The Heavy Follower) */}
       <motion.div
         style={{
-          translateX: cursorX, // Direct tracking for precision
-          translateY: cursorY,
-          left: -4, 
-          top: -4, 
+          translateX: dotX,
+          translateY: dotY,
         }}
-        className="fixed w-2 h-2 bg-orange-500 rounded-full pointer-events-none"
+        className="absolute -left-1 -top-1 w-2 h-2 bg-white rounded-full will-change-transform"
       />
     </div>
   );

@@ -8,7 +8,7 @@ const badges = [
     src: "/badges/google.png", 
     alt: "Google Partner", 
     width: 180, 
-    link: "https://www.google.com/partners" // <--- Add your link here
+    link: "https://www.google.com/partners/agency?id=3351257335" // <--- Add your link here
   },
   { 
     src: "/badges/meta.png", 
