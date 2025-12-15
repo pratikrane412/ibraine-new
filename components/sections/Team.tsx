@@ -10,44 +10,44 @@ const BRAND_BLUE = "#2B7ABC";
 
 const teamMembers = [
   {
-    name: "Kamal Abraham",
-    role: "CEO, Alaska",
+    name: "Harsh Pareek",
+    role: "CEO & Founder",
     image:
       "https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=800&auto=format&fit=crop",
   },
   {
-    name: "Selina Gomaze",
-    role: "Jr. Executive",
+    name: "Ritesh Pandey",
+    role: "Senior Software Manager",
     image:
       "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=800&auto=format&fit=crop",
   },
   {
-    name: "Pedrik V.",
-    role: "Logo Designer",
+    name: "Pratik Rane",
+    role: "Software Developer",
     image:
-      "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=800&auto=format&fit=crop",
+      "/team/pratik.jpeg",
   },
   {
-    name: "Thomas Ribbon",
-    role: "Sr. Designer",
+    name: "Nishi More",
+    role: "Social Media Executive",
     image:
-      "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=800&auto=format&fit=crop",
+      "/team/Nishi.jpg",
   },
   {
-    name: "Jonathon Deo",
-    role: "Designer",
+    name: "Avantika Kadam",
+    role: "Graphic Designer",
     image:
       "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=800&auto=format&fit=crop",
   },
   {
-    name: "Angel D.",
-    role: "Jr. Designer",
+    name: "Rasika Karjavkar",
+    role: "Social Media Executive",
     image:
       "https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=800&auto=format&fit=crop",
   },
   {
-    name: "Sarah K.",
-    role: "Marketing Head",
+    name: "Dashmeet Bhogal",
+    role: "Social Media Head",
     image:
       "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=800&auto=format&fit=crop",
   },
@@ -158,26 +158,7 @@ export const Team = () => {
           </motion.div>
         </motion.div>
 
-        {/* 3. Bottom Row Animation */}
-        <motion.div
-          initial={{ opacity: 0, y: 150 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
-          className="flex overflow-hidden"
-        >
-          <motion.div
-            initial={{ x: "-50%" }}
-            animate={{ x: 0 }}
-            transition={{ duration: 50, repeat: Infinity, ease: "linear" }}
-            className="flex gap-8 pr-8"
-            style={{ width: "max-content" }}
-          >
-            {[...teamMembers, ...teamMembers].reverse().map((member, i) => (
-              <TeamCard key={`row2-${i}`} member={member} />
-            ))}
-          </motion.div>
-        </motion.div>
+        
       </div>
     </section>
   );
