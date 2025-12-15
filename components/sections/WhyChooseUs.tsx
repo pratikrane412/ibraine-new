@@ -1,63 +1,47 @@
 "use client";
-import React, { useRef, useEffect } from 'react';
-import { motion, useScroll, useTransform, useSpring, useInView, useMotionValue } from 'framer-motion';
-import { ArrowRight, Plus } from 'lucide-react';
+import React, { useRef } from 'react';
+import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
+import { ArrowUpRight, Plus } from 'lucide-react';
 
 // --- BRAND COLORS ---
 const BRAND_ORANGE = "#FF6B00";
 const BRAND_BLUE = "#2B7ABC";
 
-const reasons = [
+// --- PORTFOLIO DATA ---
+const projects = [
   {
-    title: "Strategy",
-    percent: "60%",
-    desc: "Marketing strategy doesn't have to be a guessing game."
+    id: "01",
+    client: "Coca-Cola",
+    category: "Global Branding",
+    desc: "Reimagining the digital presence of a global icon with visceral, thirst-inducing 3D imagery.",
+    img: "https://images.unsplash.com/photo-1622483767028-3f66f32aef97?q=80&w=2660&auto=format&fit=crop",
+    year: "2023"
   },
   {
-    title: "Audience",
-    percent: "95%",
-    desc: "Target the right people with data-backed precision."
+    id: "02",
+    client: "Urban Fashion",
+    category: "Ecommerce",
+    desc: "A headless commerce platform built for high-frequency fashion drops with sub-second load times.",
+    img: "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=80&w=2000&auto=format&fit=crop",
+    year: "2024"
   },
   {
-    title: "Keyword",
-    percent: "70%",
-    desc: "Rank higher for terms that actually convert to revenue."
+    id: "03",
+    client: "Vision Pro",
+    category: "Product Design",
+    desc: "Spatial UI design for the next generation of augmented reality eyewear. Intuitive and organic.",
+    img: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=2670&auto=format&fit=crop",
+    year: "2023"
+  },
+  {
+    id: "04",
+    client: "Skyline Arch",
+    category: "Real Estate",
+    desc: "WebGL-powered luxury property showcase allowing virtual 3D penthouse tours.",
+    img: "https://images.unsplash.com/photo-1487958449943-2429e8be8625?q=80&w=2670&auto=format&fit=crop",
+    year: "2022"
   }
 ];
-
-const stats = [
-  { value: "25k", label: "Projects Completed" },
-  { value: "8k", label: "Happy Customers" },
-  { value: "15", label: "Years Experience" },
-  { value: "98", label: "Awards Won" }
-];
-
-// --- Helper Component: Animated Counter ---
-const Counter = ({ value }: { value: string }) => {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true });
-  
-  const numberMatch = value.match(/(\d+)/);
-  const number = numberMatch ? parseInt(numberMatch[0]) : 0;
-  const suffix = value.replace(number.toString(), '');
-
-  const motionValue = useMotionValue(0);
-  const springValue = useSpring(motionValue, { damping: 30, stiffness: 100, duration: 2 });
-  const rounded = useTransform(springValue, (latest) => Math.round(latest));
-
-  useEffect(() => {
-    if (isInView) {
-      motionValue.set(number);
-    }
-  }, [isInView, number, motionValue]);
-
-  return (
-    <div ref={ref} className="flex items-baseline">
-      <motion.span>{rounded}</motion.span>
-      <span>{suffix}</span>
-    </div>
-  );
-};
 
 export const WhyChooseUs = () => {
   const targetRef = useRef<HTMLDivElement>(null);
@@ -69,137 +53,109 @@ export const WhyChooseUs = () => {
     restDelta: 0.001
   });
 
-  // FIX: Changed from "-85%" to "-360vw".
-  // Calculation: Total Width (460vw) - Viewport Width (100vw) = 360vw to scroll.
-  // This ensures it stops EXACTLY at the end of the 'Ready?' slide.
-  const x = useTransform(smoothProgress, [0, 1], ["0vw", "-360vw"]);
+  // --- CALCULATION FOR SCROLL DISTANCE ---
+  // 1 Intro + 4 Projects + 1 Outro = 6 Panels total.
+  // Formula: -(TotalPanels - 1) * 100vw
+  const x = useTransform(smoothProgress, [0, 1], ["0vw", "-500vw"]);
 
   return (
-    <section ref={targetRef} className="relative h-[600vh] bg-white dark:bg-zinc-950 transition-colors duration-300">
+    // Height determines scroll length. 
+    <section ref={targetRef} className="relative h-[600vh] bg-white dark:bg-zinc-950">
       
       <div className="sticky top-0 flex h-screen items-center overflow-hidden">
         
-        {/* Background Grid */}
-        <div className="absolute inset-0 pointer-events-none z-0 opacity-10" 
-             style={{ backgroundImage: 'linear-gradient(to right, #808080 1px, transparent 1px), linear-gradient(to bottom, #808080 1px, transparent 1px)', backgroundSize: '100px 100px' }} 
-        />
+        {/* Background Elements */}
+        <div className="absolute inset-0 pointer-events-none z-0 opacity-5 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] mix-blend-overlay" />
 
         <motion.div style={{ x }} className="flex relative z-10">
           
           {/* =========================================
-              PANEL 1: TITLE (100vw)
+              PANEL 1: INTRO TITLE (100vw)
              ========================================= */}
-          <div className="w-[100vw] h-screen flex flex-col justify-center shrink-0 border-r border-zinc-100 dark:border-zinc-800 relative px-10 md:px-32">
-            <div className="absolute top-20 left-20 text-zinc-300"><Plus /></div>
-            <div className="absolute bottom-20 right-20 text-zinc-300"><Plus /></div>
-
-            <span className="font-bold tracking-[0.2em] uppercase mb-4 block" style={{ color: BRAND_ORANGE }}>
-              Why Choose Us
+          <div className="w-[100vw] h-screen flex flex-col justify-center shrink-0 border-r border-zinc-100 dark:border-zinc-800 relative px-10 md:px-24">
+            <div className="absolute top-10 left-10 text-zinc-300"><Plus size={24} /></div>
+            
+            <span className="font-bold tracking-[0.3em] uppercase mb-4 block text-sm md:text-base" style={{ color: BRAND_ORANGE }}>
+              Our Portfolio
             </span>
             
-            <h2 className="text-[12vw] md:text-[8vw] font-black uppercase leading-[0.9] tracking-tighter whitespace-nowrap">
-              <span style={{ color: BRAND_BLUE }}>Design</span> <br /> 
-              <span className="ml-20 text-zinc-400 dark:text-zinc-700">&</span> 
-              <span style={{ color: BRAND_ORANGE }}> Strategy</span>
+            {/* Reduced font size for better scaling */}
+            <h2 className="text-6xl md:text-8xl font-black uppercase leading-[0.95] tracking-tighter whitespace-nowrap text-slate-900 dark:text-white">
+              Selected <br /> 
+              <span style={{ color: BRAND_BLUE }}>Works.</span>
             </h2>
 
-            <div className="absolute right-[15%] top-[30%] hidden md:flex items-center justify-center w-40 h-40 rounded-full border border-zinc-300 dark:border-zinc-700 animate-spin-slow">
-               <div className="text-[10px] font-mono uppercase tracking-widest text-zinc-500 dark:text-zinc-400">
-                 • Scroll to Explore •
-               </div>
+            <div className="mt-8 flex items-center gap-4 text-zinc-500">
+               <div className="h-[1px] w-16 bg-zinc-300"></div>
+               <span className="text-xs md:text-sm uppercase tracking-widest">Scroll to Explore</span>
             </div>
           </div>
 
           {/* =========================================
-              PANEL 2: TEXT & CIRCLES (80vw)
+              PANEL 2, 3, 4, 5: PROJECTS (100vw EACH)
              ========================================= */}
-          <div className="w-[80vw] h-screen flex items-center justify-center shrink-0 border-r border-zinc-100 dark:border-zinc-800 bg-zinc-50/50 dark:bg-zinc-900/20">
-            <div className="max-w-4xl px-12">
-              <h3 className="text-4xl md:text-5xl font-bold mb-8 leading-tight" style={{ color: BRAND_BLUE }}>
-                KEYWORD, RESEARCH STRATEGY, <br/> SURVEY, & ANALYTICS
-              </h3>
-              <p className="text-zinc-500 dark:text-zinc-400 text-lg leading-relaxed mb-12 max-w-2xl">
-                We dive deep into data to find the hidden opportunities your competitors are missing. It's not magic; it's math.
-              </p>
-              
-              <div className="flex flex-wrap gap-4">
-                {['Google Ads', 'SEO', 'Analytics'].map((btn) => (
-                  <div key={btn} className="flex items-center gap-2 px-6 py-2 rounded-full border border-zinc-300 dark:border-zinc-700">
-                    <div className="w-2 h-2 rounded-full" style={{ backgroundColor: BRAND_ORANGE }}></div>
-                    <span className="text-sm font-bold uppercase text-zinc-600 dark:text-zinc-300">{btn}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          {/* =========================================
-              PANEL 3: CIRCLE STATS (80vw)
-             ========================================= */}
-          <div className="w-[80vw] h-screen flex items-center justify-center shrink-0 border-r border-zinc-100 dark:border-zinc-800">
-            <div className="flex flex-col gap-12 w-full px-20">
-              {reasons.map((item, i) => (
-                <div key={i} className="flex items-center justify-between group border-b border-zinc-200 dark:border-zinc-800 pb-8">
-                  <div>
-                    <h4 className="text-2xl font-bold uppercase mb-2" style={{ color: BRAND_BLUE }}>
-                      {item.title}
-                    </h4>
-                    <p className="text-zinc-500 dark:text-zinc-400 text-sm max-w-xs">
-                      {item.desc}
-                    </p>
-                  </div>
-                  
-                  <div className={`w-20 h-20 rounded-full border-2 border-zinc-200 dark:border-zinc-700 flex items-center justify-center group-hover:text-white transition-all duration-300 group-hover:scale-110`}>
-                    <span className="text-lg font-bold transition-colors" style={{ color: BRAND_ORANGE }}>
-                      {item.percent}
-                    </span>
-                    <style jsx>{`
-                      .group:hover .rounded-full {
-                        background-color: ${BRAND_BLUE};
-                        border-color: ${BRAND_BLUE};
-                      }
-                      .group:hover .rounded-full span {
-                        color: white !important;
-                      }
-                    `}</style>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* =========================================
-              PANEL 4: BIG NUMBERS (100vw)
-             ========================================= */}
-          <div 
-            className="w-[100vw] h-screen flex items-center justify-center shrink-0 text-white"
-            style={{ backgroundColor: BRAND_BLUE }} 
-          >
-            <div className="grid grid-cols-2 gap-x-20 gap-y-20 w-full max-w-6xl px-10">
-              {stats.map((stat, i) => (
-                <div key={i} className="border-l border-white/20 pl-8">
-                  <div className="text-7xl md:text-9xl font-black mb-2 tracking-tighter flex">
-                    <Counter value={stat.value} />
-                  </div>
-                  <p className="text-lg md:text-xl uppercase tracking-widest font-bold opacity-80">
-                    {stat.label}
-                  </p>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* =========================================
-              PANEL 5: CONCLUSION (100vw)
-             ========================================= */}
-          <div className="w-[100vw] h-screen flex items-center justify-center shrink-0 relative">
+          {projects.map((project, index) => (
             <div 
-              className="absolute inset-0 flex flex-col items-center justify-center text-center p-8"
-              style={{ backgroundColor: BRAND_ORANGE }} 
+              key={index} 
+              className="w-[100vw] h-screen flex flex-col lg:flex-row shrink-0 border-r border-zinc-100 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900/20"
             >
-               <h2 className="text-6xl md:text-8xl font-bold text-white mb-8">Ready?</h2>
-               <div className="w-24 h-24 bg-white rounded-full flex items-center justify-center cursor-pointer hover:scale-125 transition-transform duration-300">
-                 <ArrowRight className="w-10 h-10" style={{ color: BRAND_ORANGE }} />
+              
+              {/* Left: Project Info */}
+              <div className="w-full lg:w-[40%] h-full flex flex-col justify-center px-10 lg:px-20 relative z-10">
+                 {/* Background Number - Reduced Opacity & Size */}
+                 <span className="text-8xl font-black text-zinc-200/50 dark:text-zinc-800/50 absolute top-10 left-10 -z-10 select-none">
+                    {project.id}
+                 </span>
+
+                 <div className="mb-3 flex items-center gap-3">
+                    <span className="px-2 py-1 rounded border border-zinc-300 dark:border-zinc-700 text-[10px] font-bold uppercase tracking-wider text-zinc-500">
+                        {project.year}
+                    </span>
+                    <span className="text-xs font-bold uppercase tracking-wider" style={{ color: BRAND_ORANGE }}>
+                        {project.category}
+                    </span>
+                 </div>
+
+                 {/* Project Title - Scaled Down */}
+                 <h3 className="text-4xl md:text-5xl lg:text-6xl font-black text-slate-900 dark:text-white mb-4 leading-tight">
+                    {project.client}
+                 </h3>
+
+                 <p className="text-base md:text-lg text-zinc-600 dark:text-zinc-400 leading-relaxed mb-8 max-w-sm">
+                    {project.desc}
+                 </p>
+
+                 <button className="group flex items-center gap-3 text-xs md:text-sm font-bold uppercase tracking-widest text-slate-900 dark:text-white">
+                    <span className="w-10 h-10 rounded-full bg-white dark:bg-black border border-zinc-200 dark:border-zinc-800 flex items-center justify-center group-hover:bg-[#2B7ABC] group-hover:text-white group-hover:border-[#2B7ABC] transition-all duration-300">
+                        <ArrowUpRight size={18} />
+                    </span>
+                    View Case Study
+                 </button>
+              </div>
+
+              {/* Right: Project Image */}
+              <div className="w-full lg:w-[60%] h-full relative overflow-hidden group">
+                 <div className="absolute inset-0 bg-black/10 z-10 group-hover:bg-transparent transition-colors duration-500" />
+                 <img 
+                    src={project.img} 
+                    alt={project.client} 
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                 />
+              </div>
+
+            </div>
+          ))}
+
+          {/* =========================================
+              PANEL 6: OUTRO CTA (100vw)
+             ========================================= */}
+          <div className="w-[100vw] h-screen flex items-center justify-center shrink-0 relative bg-[#2B7ABC]">
+            <div className="text-center p-8 text-white">
+               <h2 className="text-5xl md:text-7xl font-black mb-8">View All <br/> Projects</h2>
+               <div className="flex justify-center">
+                 <div className="w-20 h-20 bg-white rounded-full flex items-center justify-center cursor-pointer hover:scale-125 transition-transform duration-300 text-[#2B7ABC]">
+                   <ArrowUpRight className="w-8 h-8" />
+                 </div>
                </div>
             </div>
           </div>

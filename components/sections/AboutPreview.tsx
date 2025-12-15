@@ -1,7 +1,7 @@
 "use client";
 import React, { useRef } from "react";
-import { motion, useScroll, useTransform, MotionValue } from "framer-motion";
-import { ArrowRight, BarChart3, Fingerprint, Globe, Layers, LayoutGrid, Zap } from "lucide-react";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { ArrowRight, Play, CheckCircle2, Globe, TrendingUp } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -9,177 +9,120 @@ import Link from "next/link";
 const BRAND_ORANGE = "#FF6B00";
 const BRAND_BLUE = "#2B7ABC";
 
-// --- DATA: THE DOSSIER FILES ---
-const cards = [
-  {
-    id: 1,
-    tab: "Identity",
-    title: "Who We Are",
-    headline: "Digital Intelligence.",
-    desc: "iBraine is not just an agency; we are a growth engine. Born in 2010, we bridge the gap between creative storytelling and data-driven infrastructure. We don't believe in luck. We believe in engineering success through code, content, and strategy.",
-    tags: ["Est. 2010", "Mumbai HQ", "Global Team"],
-    icon: Fingerprint,
-    color: "bg-white dark:bg-zinc-900",
-    textColor: "text-zinc-900 dark:text-white",
-    img: "https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=2301&auto=format&fit=crop"
-  },
-  {
-    id: 2,
-    tab: "Capabilities",
-    title: "What We Do",
-    headline: "Full-Stack Growth.",
-    desc: "We replace fragmented vendors with a unified ecosystem. From complex SEO architectures to high-octane performance marketing and enterprise web development, our capabilities are designed to scale with your ambition.",
-    tags: ["SEO & Content", "Performance Ads", "Web Dev", "App Logic"],
-    icon: Layers,
-    color: "bg-[#2B7ABC]", // Brand Blue
-    textColor: "text-white",
-    img: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2070&auto=format&fit=crop"
-  },
-  {
-    id: 3,
-    tab: "Impact",
-    title: "The Results",
-    headline: "$50M+ Revenue Generated.",
-    desc: "We move beyond vanity metrics. Likes and clicks don't pay bills—revenue does. We have helped 1,200+ clients across 20 countries dominate their markets. Our work is measured in ROI, Retention, and real-world Impact.",
-    tags: ["1.2k Clients", "98% Retention", "20+ Countries"],
-    icon: BarChart3,
-    color: "bg-[#FF6B00]", // Brand Orange
-    textColor: "text-white",
-    img: "https://images.unsplash.com/photo-1551836022-d5d88e9218df?q=80&w=2070&auto=format&fit=crop"
-  },
-];
-
 export const AboutPreview = () => {
   const containerRef = useRef(null);
   
-  // We make the scroll container 3x height to allow scrolling through cards
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ["start start", "end end"],
+    offset: ["start end", "end start"],
   });
 
+  const scaleImg = useTransform(scrollYProgress, [0, 1], [1.2, 1]);
+  const yText = useTransform(scrollYProgress, [0, 1], [50, -50]);
+
   return (
-    <section ref={containerRef} className="relative h-[300vh] bg-zinc-100 dark:bg-black">
+    // min-h-screen ensures it fills the vertical space completely
+    <section ref={containerRef} className="w-full min-h-screen bg-zinc-50 dark:bg-zinc-950 flex flex-col lg:flex-row relative overflow-hidden">
       
-      {/* BACKGROUND HEADER (Visible at start) */}
-      <div className="h-screen flex flex-col items-center justify-center sticky top-0 overflow-hidden">
-        <h2 className="text-[12vw] font-black text-zinc-200 dark:text-zinc-900 tracking-tighter leading-none select-none">
-          THE AGENCY
-        </h2>
-        <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.03] pointer-events-none mix-blend-overlay" />
-      </div>
-
-      {/* THE STACK CONTAINER */}
-      <div className="max-w-[1200px] mx-auto px-4 absolute top-0 left-0 right-0 h-full">
-        {cards.map((card, index) => {
-          // Calculate dynamic range for each card based on scroll
-          // Each card enters at a specific % of the scroll
-          const targetScale = 1 - (cards.length - index) * 0.05; 
-          
-          return (
-            <Card 
-                key={index} 
-                i={index} 
-                card={card} 
-                progress={scrollYProgress} 
-                range={[index * 0.25, 1]} 
-                targetScale={targetScale}
+      {/* 1. LEFT COLUMN: IMMERSIVE VISUAL (50% Width, Full Height) */}
+      <div className="w-full lg:w-1/2 h-[60vh] lg:h-auto relative overflow-hidden group">
+        <motion.div style={{ scale: scaleImg }} className="w-full h-full relative">
+            <Image 
+                src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=2670&auto=format&fit=crop" 
+                alt="Strategic Planning"
+                fill
+                className="object-cover"
             />
-          );
-        })}
-      </div>
-    </section>
-  );
-};
+            {/* Gradient Overlay for Text Readability if needed */}
+            <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors duration-700" />
+        </motion.div>
 
-// --- SINGLE CARD COMPONENT ---
-const Card = ({ i, card, progress, range, targetScale }: any) => {
-  const container = useRef(null);
-  const { scrollYProgress } = useScroll({
-    target: container,
-    offset: ['start end', 'start start']
-  });
-
-  // Transform Logic:
-  // As user scrolls, the card slides up (y).
-  // Once it hits the top, it scales down slightly (scale) to create the "stack" effect.
-  const imageScale = useTransform(scrollYProgress, [0, 1], [1.2, 1]); // Inner image parallax
-  const scale = useTransform(progress, range, [1, targetScale]);
-  
-  // Calculate top position offset so cards stack visibly
-  const topOffset = 40 + (i * 20); 
-
-  return (
-    <div ref={container} className="h-screen flex items-center justify-center sticky top-0">
-      <motion.div 
-        style={{ 
-            scale, 
-            top: topOffset,
-            // We use a spring-like ease for smoothness
-            transition: "all 0.5s ease-out"
-        }}
-        className={`relative w-full h-[600px] md:h-[650px] rounded-[2.5rem] overflow-hidden shadow-2xl border border-white/10 origin-top flex flex-col md:flex-row ${card.color} ${card.textColor}`}
-      >
-        
-        {/* LEFT: TEXT CONTENT (60%) */}
-        <div className="w-full md:w-[60%] p-8 md:p-12 flex flex-col justify-between relative z-10">
-            
-            {/* Header */}
-            <div className="flex justify-between items-start">
-                <div className="flex items-center gap-2 px-3 py-1 rounded-full border border-current opacity-60 text-xs font-bold uppercase tracking-widest">
-                    <card.icon size={14} />
-                    {card.tab}
-                </div>
-                <span className="font-mono text-xl font-bold opacity-40">0{card.id}</span>
+        {/* Floating Play Button (Centered in Image) */}
+        <div className="absolute inset-0 flex items-center justify-center z-10">
+            <div className="w-20 h-20 rounded-full bg-white/10 backdrop-blur-md border border-white/30 flex items-center justify-center cursor-pointer hover:scale-110 transition-transform duration-300 group">
+                <Play className="w-8 h-8 text-white fill-white ml-1" />
             </div>
+        </div>
 
-            {/* Main Body */}
+        {/* Bottom Stats Overlay on Image */}
+        <div className="absolute bottom-0 left-0 w-full p-8 bg-gradient-to-t from-black/80 to-transparent flex justify-between items-end text-white">
             <div>
-                <h3 className="text-4xl md:text-6xl font-black mb-6 leading-[0.9] tracking-tight">
-                    {card.headline}
-                </h3>
-                <p className="text-lg md:text-xl font-medium opacity-80 leading-relaxed max-w-lg mb-8">
-                    {card.desc}
-                </p>
+                <p className="text-xs font-bold uppercase tracking-widest opacity-70 mb-1">Global Reach</p>
+                <div className="flex items-center gap-2">
+                    <Globe className="w-5 h-5 text-orange-500" />
+                    <span className="text-2xl font-bold">20+ Countries</span>
+                </div>
+            </div>
+            <div className="text-right">
+                <p className="text-xs font-bold uppercase tracking-widest opacity-70 mb-1">Revenue Driven</p>
+                <div className="flex items-center gap-2 justify-end">
+                    <TrendingUp className="w-5 h-5 text-green-400" />
+                    <span className="text-2xl font-bold">$50M+</span>
+                </div>
+            </div>
+        </div>
+      </div>
 
-                {/* Tags Grid */}
-                <div className="flex flex-wrap gap-3">
-                    {card.tags.map((tag: string, idx: number) => (
-                        <span key={idx} className="px-4 py-2 rounded-lg bg-black/5 dark:bg-white/10 backdrop-blur-md text-sm font-bold">
-                            {tag}
-                        </span>
-                    ))}
+      {/* 2. RIGHT COLUMN: DENSE CONTENT (50% Width, Full Height) */}
+      <div className="w-full lg:w-1/2 flex flex-col justify-center p-8 md:p-16 lg:p-24 relative bg-white dark:bg-black border-l border-zinc-200 dark:border-zinc-800">
+        
+        {/* Background Texture */}
+        <div className="absolute inset-0 opacity-[0.05] pointer-events-none bg-[url('https://grainy-gradients.vercel.app/noise.svg')] mix-blend-overlay" />
+
+        <motion.div style={{ y: yText }} className="relative z-10">
+            
+            {/* Header Tags */}
+            <div className="flex items-center gap-4 mb-8">
+                <span className="px-3 py-1 rounded-full border border-orange-500 text-orange-500 text-xs font-bold uppercase tracking-widest">
+                    Est. 2010
+                </span>
+                <span className="px-3 py-1 rounded-full border border-zinc-300 dark:border-zinc-700 text-zinc-500 text-xs font-bold uppercase tracking-widest">
+                    Mumbai HQ
+                </span>
+            </div>
+
+            {/* Massive Typography */}
+            <h2 className="text-5xl md:text-7xl lg:text-8xl font-black text-zinc-900 dark:text-white leading-[0.9] tracking-tighter mb-8">
+                DIGITAL <br/>
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-blue-400">
+                    INTELLIGENCE.
+                </span>
+            </h2>
+
+            {/* Dense Paragraph */}
+            <p className="text-lg md:text-xl text-zinc-600 dark:text-zinc-400 font-medium leading-relaxed mb-10 max-w-xl text-justify">
+                We bridge the gap between creative storytelling and data-driven infrastructure. <strong className="text-zinc-900 dark:text-white">iBraine</strong> isn't just an agency; we are a growth engine designed to help brands dominate their market through precision, speed, and scale.
+            </p>
+
+            {/* Checklist Grid (Fills horizontal space) */}
+            <div className="grid grid-cols-2 gap-6 mb-12 border-t border-b border-zinc-200 dark:border-zinc-800 py-8">
+                {['Strategic Planning', 'Advanced SEO', 'Performance Marketing', 'Brand Identity', 'Web Development', 'Data Analytics'].map((item, i) => (
+                    <div key={i} className="flex items-center gap-3">
+                        <div className="w-6 h-6 rounded-full bg-orange-100 dark:bg-orange-900/20 flex items-center justify-center shrink-0">
+                            <CheckCircle2 className="w-3.5 h-3.5 text-orange-500" />
+                        </div>
+                        <span className="text-sm font-bold text-zinc-800 dark:text-zinc-300 uppercase tracking-wide">{item}</span>
+                    </div>
+                ))}
+            </div>
+
+            {/* CTA Area */}
+            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-8">
+                <Link href="/about" className="group relative inline-flex items-center justify-center px-10 py-5 bg-zinc-900 dark:bg-white text-white dark:text-black overflow-hidden rounded-none font-bold uppercase tracking-widest transition-all hover:bg-blue-600 dark:hover:bg-zinc-200">
+                    <span className="relative z-10 flex items-center gap-2">
+                        Read Full Story <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                    </span>
+                </Link>
+                
+                <div className="flex flex-col">
+                    <span className="text-4xl font-black text-zinc-900 dark:text-white">1.2k+</span>
+                    <span className="text-xs font-bold text-zinc-400 uppercase tracking-wider">Clients Empowered</span>
                 </div>
             </div>
 
-            {/* Footer / CTA */}
-            <div className="pt-8 border-t border-current border-opacity-10 flex items-center gap-4">
-                <Link href="/about" className="group flex items-center gap-2 text-sm font-bold uppercase tracking-wider hover:underline underline-offset-4 decoration-2">
-                    Full Dossier <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
-                </Link>
-            </div>
-        </div>
+        </motion.div>
+      </div>
 
-        {/* RIGHT: IMAGE (40%) */}
-        <div className="w-full md:w-[40%] relative overflow-hidden h-full">
-            <motion.div style={{ scale: imageScale }} className="relative w-full h-full">
-                <Image 
-                    src={card.img} 
-                    alt={card.title} 
-                    fill 
-                    className="object-cover"
-                />
-                {/* Overlay for text readability on mobile if stacked vertically, or style */}
-                <div className="absolute inset-0 bg-black/10" />
-            </motion.div>
-            
-            {/* Watermark Logo/Text */}
-            <div className="absolute bottom-6 right-6 opacity-50">
-                <LayoutGrid size={40} className="text-white drop-shadow-lg" />
-            </div>
-        </div>
-
-      </motion.div>
-    </div>
+    </section>
   );
 };
