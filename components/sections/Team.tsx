@@ -37,7 +37,7 @@ const teamMembers = [
     name: "Avantika Kadam",
     role: "Graphic Designer",
     image:
-      "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=800&auto=format&fit=crop",
+      "/team/Avantika.jpeg",
   },
   {
     name: "Rasika Karjavkar",
